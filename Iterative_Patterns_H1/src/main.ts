@@ -235,23 +235,22 @@ app.stage.addChild(graph3);
         }
     });
 };
+main();
 
 
 
-
-if(Texture.length == 24){
-    for(let i = 0; i < Texture.length; i++){
-        if(Texture[i] != null){
-            detector.push(true);
-        }
-    }
-    if(detector.length == 24){
-        if(checker(detector)){
-            main();
-        }
-    }
-    
-}
+// if(Texture.length == 24){
+//     for(let i = 0; i < Texture.length; i++){
+//         if(Texture[i] != null){
+//             detector.push(true);
+//         }
+//     }
+//     if(detector.length == 24){
+//         if(checker(detector)){
+//             main();
+//         }
+//     } 
+// }
 
 
 
