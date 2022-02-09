@@ -7,6 +7,9 @@ let Texture: object[] = [];
 let RedContainer, PinkContainer;
 let xin, chun, kuai, le;
 let spd = 1.5;
+let detector: boolean[] = [];
+let detectorFin: boolean[] = [];
+let checker = arr => arr.every(v => v === true);
 
 // main function
 const main = async () => {
@@ -234,5 +237,21 @@ app.stage.addChild(graph3);
 };
 
 
-main();
+
+
+if(Texture.length == 24){
+    for(let i = 0; i < Texture.length; i++){
+        if(Texture[i] != null){
+            detector.push(true);
+        }
+    }
+    if(detector.length == 24){
+        if(checker(detector)){
+            main();
+        }
+    }
+    
+}
+
+
 
