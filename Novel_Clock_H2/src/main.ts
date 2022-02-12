@@ -14,8 +14,14 @@ gui.add(person, 'name');
 let car = {speed: 45}; 
 gui.add(person, 'age', 0, 100);
 
-// import * as Filters from 'pixi-filters'
-
+const getTime = () => {
+    const time = new Date();
+    return {
+      date: time.getDate(),
+      hour: time.getHours(),
+      minute: time.getMinutes(),
+    };
+  };
 
 let buttonData = {
     width: 200,
