@@ -4,15 +4,14 @@ import * as PIXI from "pixi.js"
 import { PI_2, Sprite } from "pixi.js";
 import * as dat from 'dat.gui';
 
-
 const gui = new dat.GUI();
 let folder1 = gui.addFolder('My folder');
 // Add a string controller. 
-let person = {name: 'Sam'}; 
-gui.add(person, 'name');  
+// let person = {name: 'Sam'}; 
+// gui.add(person, 'name');  
 // Add a number controller slider. 
-let car = {speed: 45}; 
-gui.add(person, 'age', 0, 100);
+// let car = {speed: 45}; 
+// gui.add(person, 'age', 0, 100);
 
 const getTime = () => {
     const time = new Date();
