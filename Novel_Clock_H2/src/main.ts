@@ -80,13 +80,15 @@ const main = async () => {
     } 
   
     //Time to petal
-    let sRemainP: number  = new Date().getSeconds() % 6;
-    let sRemainF = (new Date().getSeconds() - sRemainP) / 6;
-    let mRemainP: number  = new Date().getMinutes() % 6;
-    let mRemainF: number = (new Date().getMinutes() - mRemainP) / 6;
-    let hRemainP: number  = new Date().getHours() % 6;
-    let hRemainF: number = (new Date().getHours() - hRemainP) / 6;
-    
+    let sRemainP: number  = (60 - new Date().getSeconds()) % 6;
+    let sRemainF = (60 - new Date().getSeconds() - sRemainP) / 6;
+
+    let mRemainP: number  = (60 - new Date().getMinutes()) % 6;
+    let mRemainF: number = (60 - new Date().getMinutes() - mRemainP) / 6;
+    let hRemainP: number  = (24 - new Date().getHours()) % 6;
+    let hRemainF: number = (24 - new Date().getHours() - hRemainP) / 6;
+    // console.log(mRemainF);
+
     //Draw background boxes
     this.backgroundBox.clear();
     this.backgroundBox.beginFill(colorSet[2]);
@@ -107,7 +109,7 @@ const main = async () => {
     //Draw petals
     this.petal.clear();
     this.petal.beginFill(colorSet[0]);
-    for(let i = 0; i < 4; i++){
+    for(let i = 0; i < hRemainF; i++){
       // this.petal.pivot.x = 25 + boxWidth / 2 + pedalW / 2;
       // this.pedal.pivot.y = window.innerHeight / 5 + 15 + i * boxHeight / 5;
       this.petal.drawEllipse(
