@@ -4,6 +4,7 @@ In this assignment, I use each red point to represent a unit in time (seconds/ m
 
 ## Original Idea
 My original idea is to create flowers on screen and make a petal fall when one unit of time passes. The appearance of flowers will vary according to the season
-![Tux, the Linux mascot](/assets/drawPetal.jpg)
+![PetalDrawing](./assets/drawPetal.jpg)
 However, I fail to perform rotation correctly in the for loop that generate petals around the center of a flower. Due to the time limit, I reduce the project to points. 
 
+![RotationError](./assets/rotationFial.jpg)
