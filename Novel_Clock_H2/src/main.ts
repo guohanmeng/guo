@@ -9,12 +9,12 @@ interface flowerVar {
 	backgroundBox: PIXI.Graphics;
 }
 let colorSet: Array<number> = [];
-let pedalL: number; 
-let pedalW: number;
+let petalL: number; 
+let petalW: number;
 let centerS: number;
 let boxHeight: number = window.innerHeight - 50;
 let boxWidth: number = (window.innerWidth - 100) / 3;
-let colorWinter: Array<number> = [0x931A25, 0xE97171, 0xF5EFEF];
+let colorWinter: Array<number> = [0x931A25, 0xFADBD8, 0xF5EFEF];
 let colorSpring: Array<number> = [0xEFD9D1, 0xD8AC9C, 0x999B84];
 let colorSummer: Array<number> = [0xffca00, 0x240d00, 0x648e00];
 let colorAutumn: Array<number> = [0xffd300, 0xffa100, 0xa74c00];
@@ -59,23 +59,23 @@ const main = async () => {
 
     if (new Date().getMonth() == 11 || new Date().getMonth() == 0 || new Date().getMonth() == 1){
       colorSet = colorWinter;
-      pedalL = 23;
-      pedalW = 20;
+      petalL = 23;
+      petalW = 20;
       centerS = 5;
     } else if (new Date().getMonth() == 2 || new Date().getMonth() == 3 || new Date().getMonth() == 4){
       colorSet = colorSpring;
-      pedalL = 25;
-      pedalW = 20;
+      petalL = 25;
+      petalW = 20;
       centerS = 5;
     } else if (new Date().getMonth() == 5 || new Date().getMonth() == 6 || new Date().getMonth() == 7){
       colorSet = colorSummer;
-      pedalL = 30;
-      pedalW = 15;
+      petalL = 30;
+      petalW = 15;
       centerS = 30;
     } else if (new Date().getMonth() == 8 || new Date().getMonth() == 9 || new Date().getMonth() == 10){
       colorSet = colorAutumn;
-      pedalL = 30;
-      pedalW = 8;
+      petalL = 30;
+      petalW = 8;
       centerS = 3;
     } 
   
@@ -97,14 +97,42 @@ const main = async () => {
         boxHeight, 
         30
         );
-
     }
     this.backgroundBox.endFill();
 
-    // //Draw pedals
-    // this.pedal.clear();
-    // this.pedal.beginFill(colorSet[0]);
-    // this.pedal.endFill();
+    //Draw petals
+    this.petal.clear();
+    this.petal.beginFill(colorSet[0]);
+    for(let i = 0; i < 4; i++){
+      // this.petal.pivot.x = 25 + boxWidth / 2 + pedalW / 2;
+      // this.pedal.pivot.y = window.innerHeight / 5 + 15 + i * boxHeight / 5;
+      this.petal.drawEllipse(
+        25 + boxWidth / 2,
+        window.innerHeight / 5 + 15 + i * boxHeight / 5 - petalL,
+        petalW,
+        petalL
+      );
+    }
+    // for (let m = 0; m < 5; m++){
+    //   for (let n = 0; n < 2; n++){
+    //     this.petal.drawEllipse(
+    //       25 + boxWidth / 2,
+    //       window.innerHeight / 5 + 15 + i * boxHeight / 5 - petalL,
+    //       petalW,
+    //       petalL
+    //     );
+    //   }
+    // }
+    // for (let p = 0; p < 5; p++){
+    //   for (let q = 0; q < 2; q++){
+    //     this.center.drawCircle(
+    //       75 + 7 * boxWidth / 3 + q * boxWidth / 3,
+    //       boxHeight / 6 + 25 + p * boxHeight / 6,
+    //       centerS
+    //     );
+    //   }
+    // }
+    this.petal.endFill();
 
     //Draw center circles
     this.center.clear();
@@ -135,8 +163,6 @@ const main = async () => {
       }
     }
     this.center.endFill();
-
-
   }
 
 
