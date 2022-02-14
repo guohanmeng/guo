@@ -146,6 +146,23 @@ console.log(hRow);
         centerS
       );
     }
+
+  for (let a = 0; a < sRow; a++){
+    for (let b = 0; b < 6; b++){
+      this.center.drawCircle(
+        75 + 15 * boxWidth / 7 + b * boxWidth / 7,
+        boxHeight / 11 + 25 + a * boxHeight / 11,
+        centerS
+      );
+    }
+  }
+  for(let z = 0; z < sRemain; z++){
+    this.center.drawCircle(
+      75 + 15 * boxWidth / 7 + z * boxWidth / 7,
+      boxHeight / 11 + 25 + sRow * boxHeight / 11,
+      centerS
+    );
+  }
      this.center.endFill();
 
     // //Draw petals
