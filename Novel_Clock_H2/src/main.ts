@@ -79,11 +79,14 @@ const main = async () => {
       centerS = 3;
     } 
   
-    //Time convert
-    let sRemainF = new Date().getSeconds() / 60;
- 
+    //Time to petal
+    let sRemainP: number  = new Date().getSeconds() % 6;
+    let sRemainF = (new Date().getSeconds() - sRemainP) / 6;
     let mRemainP: number  = new Date().getMinutes() % 6;
-    let mRemainF: number = new Date().getMinutes() // 6;
+    let mRemainF: number = (new Date().getMinutes() - mRemainP) / 6;
+    let hRemainP: number  = new Date().getHours() % 6;
+    let hRemainF: number = (new Date().getHours() - hRemainP) / 6;
+    
     //Draw background boxes
     this.backgroundBox.clear();
     this.backgroundBox.beginFill(colorSet[2]);
