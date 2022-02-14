@@ -4,7 +4,7 @@ import * as PIXI from "pixi.js"
 
 interface flowerVar {
 	// velocity: any;
-	petal: PIXI.Graphics;
+	// petal: PIXI.Graphics;
 	center: PIXI.Graphics;
 	backgroundBox: PIXI.Graphics;
 }
@@ -32,8 +32,8 @@ const main = async () => {
   let backgroundBox = new PIXI.Graphics();
   app.stage.addChild(backgroundBox);
 
-  let petal = new PIXI.Graphics();
-  app.stage.addChild(petal);
+  // let petal = new PIXI.Graphics();
+  // app.stage.addChild(petal);
 
   let center = new PIXI.Graphics();
   app.stage.addChild(center);
@@ -46,7 +46,7 @@ const main = async () => {
   document.body.appendChild(app.view);
   
   let context: flowerVar = {
-    petal,
+    // petal,
     center,
     backgroundBox
   };
@@ -80,15 +80,22 @@ const main = async () => {
     } 
   
     //Time to petal
-    let sRemainP: number  = (60 - new Date().getSeconds()) % 6;
-    let sRemainF = (60 - new Date().getSeconds() - sRemainP) / 6;
-
-    let mRemainP: number  = (60 - new Date().getMinutes()) % 6;
-    let mRemainF: number = (60 - new Date().getMinutes() - mRemainP) / 6;
-    let hRemainP: number  = (24 - new Date().getHours()) % 6;
-    let hRemainF: number = (24 - new Date().getHours() - hRemainP) / 6;
+    // let sRemainP: number  = (60 - new Date().getSeconds()) % 6;
+    // let sRemainF = (60 - new Date().getSeconds() - sRemainP) / 6;
+    // let mRemainP: number  = (60 - new Date().getMinutes()) % 6;
+    // let mRemainF: number = (60 - new Date().getMinutes() - mRemainP) / 6;
+    // let hRemainP: number  = (24 - new Date().getHours()) % 6;
+    // let hRemainF: number = (24 - new Date().getHours() - hRemainP) / 6;
     // console.log(mRemainF);
 
+    //Time to circles
+    let sRemain: number = (60 - new Date().getSeconds()) % 6
+    let sRow: number = (60 - new Date().getSeconds() - sRemain) / 6;
+    let mRemain:number = (60 - new Date().getMinutes()) % 6;
+    let mRow: number = (60 - new Date().getMinutes() - mRemain) / 6;
+    let hRemain: number = (24 - new Date().getHours()) % 4;
+    let hRow: number = (24 - new Date().getHours() - hRemain) / 4;
+console.log(hRow);
     //Draw background boxes
     this.backgroundBox.clear();
     this.backgroundBox.beginFill(colorSet[2]);
@@ -106,36 +113,56 @@ const main = async () => {
     }
     this.backgroundBox.endFill();
 
-    //Draw petals
-    this.petal.clear();
-    this.petal.beginFill(colorSet[0]);
-    for(let i = 0; i < hRemainF; i++){
-      // this.petal.pivot.x = 25 + boxWidth / 2 + pedalW / 2;
-      // this.pedal.pivot.y = window.innerHeight / 5 + 15 + i * boxHeight / 5;
-      for(let j = 0; j < 6; j++){
-        this.petal.drawEllipse(
-          25 + boxWidth / 2,
-          window.innerHeight / 5 + 15 + i * boxHeight / 5 - petalL,
-          petalW,
-          petalL
-        );
-        this.petal.rotation = j * 60;
-      }
-    }
+     //Draw Hour Circles
+     this.center.clear();
+     this.center.beginFill(colorSet[0]);
+     for (let i = 0; i < hRow; i++){
+       for(let j = 0; j < 4; j++){
+         this.center.drawCircle(25 + boxWidth / 5 + j * boxWidth / 5, 
+          window.innerHeight / 6 + 25 + i * boxHeight / 6, 
+          centerS);
+         console.log("h");
+       }
+     }
+     for (let x = 0; x < hRemain; x ++){
+        this.center.drawCircle(25 + boxWidth / 5 + x * boxWidth / 5, 
+        window.innerHeight / 6 + 25 + hRow * boxHeight / 6, 
+        centerS);
+     }
 
-    for (let m = 0; m < (mRemainF + mRemainF % 2) / 2; m++){
-      for (let n = 0; n < 2; n++){
-        for (let j = 0; j < 6; j++){
-        this.petal.drawEllipse(
-          50 + 4 * boxWidth / 3 + n * boxWidth / 3,
-          window.innerHeight / 5 + 15 + m * boxHeight / 5 - petalL,
-          petalW,
-          petalL
-        );
-        this.petal.rotation = j * 60;
-        }
-      }
-    }
+     console.log("h");
+     this.center.endFill();
+
+    // //Draw petals
+    // this.petal.clear();
+    // this.petal.beginFill(colorSet[0]);
+    // for(let i = 0; i < hRemainF; i++){
+    //   for(let j = 0; j < 6; j++){
+    //     this.petal.pivot.set(petalW / 2, petalL / 2);
+    //     this.petal.drawEllipse(
+    //       25 + boxWidth / 2 + petalW / 2,
+    //       window.innerHeight / 5 + 15 + i * boxHeight / 5 - petalL,
+    //       petalW,
+    //       petalL
+    //     ); 
+
+        // this.petal.angle = j * 60;
+    //   }
+    // }
+
+    // for (let m = 0; m < (mRemainF + mRemainF % 2) / 2; m++){
+    //   for (let n = 0; n < 2; n++){
+    //     for (let j = 0; j < 6; j++){
+    //       this.petal.drawEllipse(
+    //         50 + 4 * boxWidth / 3 + n * boxWidth / 3,
+    //         window.innerHeight / 5 + 15 + m * boxHeight / 5 - petalL,
+    //         petalW,
+    //         petalL
+    //       );
+    //     this.petal.rotation = j * 60;
+    //     }
+    //   }
+    // }
     // for (let p = 0; p < 5; p++){
     //   for (let q = 0; q < 2; q++){
     //     this.center.drawCircle(
@@ -145,37 +172,37 @@ const main = async () => {
     //     );
     //   }
     // }
-    this.petal.endFill();
+    // this.petal.endFill();
 
     //Draw center circles
-    this.center.clear();
-    this.center.beginFill(colorSet[1]);
-    for(let i = 0; i < 4; i++){
-      this.center.drawCircle(
-        25 + boxWidth / 2,
-        window.innerHeight / 5 + 15 + i * boxHeight / 5,
-        centerS
-      );
-    }
-    for (let m = 0; m < 5; m++){
-      for (let n = 0; n < 2; n++){
-        this.center.drawCircle(
-          50 + 4 * boxWidth / 3 + n * boxWidth / 3,
-          boxHeight / 6 + 25 + m * boxHeight / 6,
-          centerS
-        );
-      }
-    }
-    for (let p = 0; p < 5; p++){
-      for (let q = 0; q < 2; q++){
-        this.center.drawCircle(
-          75 + 7 * boxWidth / 3 + q * boxWidth / 3,
-          boxHeight / 6 + 25 + p * boxHeight / 6,
-          centerS
-        );
-      }
-    }
-    this.center.endFill();
+    // this.center.clear();
+    // this.center.beginFill(colorSet[1]);
+    // for(let i = 0; i < 4; i++){
+    //   this.center.drawCircle(
+    //     25 + boxWidth / 2,
+    //     window.innerHeight / 5 + 15 + i * boxHeight / 5,
+    //     centerS
+    //   );
+    // }
+    // for (let m = 0; m < 5; m++){
+    //   for (let n = 0; n < 2; n++){
+    //     this.center.drawCircle(
+    //       50 + 4 * boxWidth / 3 + n * boxWidth / 3,
+    //       boxHeight / 6 + 25 + m * boxHeight / 6,
+    //       centerS
+    //     );
+    //   }
+    // }
+    // for (let p = 0; p < 5; p++){
+    //   for (let q = 0; q < 2; q++){
+    //     this.center.drawCircle(
+    //       75 + 7 * boxWidth / 3 + q * boxWidth / 3,
+    //       boxHeight / 6 + 25 + p * boxHeight / 6,
+    //       centerS
+    //     );
+    //   }
+    // }
+    // this.center.endFill();
   }
 
 
