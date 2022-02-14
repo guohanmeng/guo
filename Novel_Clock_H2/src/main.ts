@@ -130,7 +130,22 @@ console.log(hRow);
         centerS);
      }
 
-     console.log("h");
+    for (let m = 0; m < mRow; m++){
+      for (let n = 0; n < 6; n++){
+        this.center.drawCircle(
+          50 + 8 * boxWidth / 7 + n * boxWidth / 7,
+          boxHeight / 11 + 25 + m * boxHeight / 11,
+          centerS
+        );
+      }
+    }
+    for(let y = 0; y < mRemain; y++){
+      this.center.drawCircle(
+        50 + 8 * boxWidth / 7 + y * boxWidth / 7,
+        boxHeight / 11 + 25 + mRow * boxHeight / 11,
+        centerS
+      );
+    }
      this.center.endFill();
 
     // //Draw petals
