@@ -119,14 +119,14 @@ console.log(hRow);
      for (let i = 0; i < hRow; i++){
        for(let j = 0; j < 4; j++){
          this.center.drawCircle(25 + boxWidth / 5 + j * boxWidth / 5, 
-          window.innerHeight / 6 + 25 + i * boxHeight / 6, 
+          window.innerHeight / 7 + 25 + i * boxHeight / 7, 
           centerS);
          console.log("h");
        }
      }
      for (let x = 0; x < hRemain; x ++){
         this.center.drawCircle(25 + boxWidth / 5 + x * boxWidth / 5, 
-        window.innerHeight / 6 + 25 + hRow * boxHeight / 6, 
+        window.innerHeight / 7 + 25 + hRow * boxHeight / 7, 
         centerS);
      }
 
