@@ -112,23 +112,30 @@ const main = async () => {
     for(let i = 0; i < hRemainF; i++){
       // this.petal.pivot.x = 25 + boxWidth / 2 + pedalW / 2;
       // this.pedal.pivot.y = window.innerHeight / 5 + 15 + i * boxHeight / 5;
-      this.petal.drawEllipse(
-        25 + boxWidth / 2,
-        window.innerHeight / 5 + 15 + i * boxHeight / 5 - petalL,
-        petalW,
-        petalL
-      );
+      for(let j = 0; j < 6; j++){
+        this.petal.drawEllipse(
+          25 + boxWidth / 2,
+          window.innerHeight / 5 + 15 + i * boxHeight / 5 - petalL,
+          petalW,
+          petalL
+        );
+        this.petal.rotation = j * 60;
+      }
     }
-    // for (let m = 0; m < 5; m++){
-    //   for (let n = 0; n < 2; n++){
-    //     this.petal.drawEllipse(
-    //       25 + boxWidth / 2,
-    //       window.innerHeight / 5 + 15 + i * boxHeight / 5 - petalL,
-    //       petalW,
-    //       petalL
-    //     );
-    //   }
-    // }
+
+    for (let m = 0; m < (mRemainF + mRemainF % 2) / 2; m++){
+      for (let n = 0; n < 2; n++){
+        for (let j = 0; j < 6; j++){
+        this.petal.drawEllipse(
+          50 + 4 * boxWidth / 3 + n * boxWidth / 3,
+          window.innerHeight / 5 + 15 + m * boxHeight / 5 - petalL,
+          petalW,
+          petalL
+        );
+        this.petal.rotation = j * 60;
+        }
+      }
+    }
     // for (let p = 0; p < 5; p++){
     //   for (let q = 0; q < 2; q++){
     //     this.center.drawCircle(
