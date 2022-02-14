@@ -80,9 +80,10 @@ const main = async () => {
     } 
   
     //Time convert
-    let secondProgress = new Date().getSeconds() / 60;
-    let minProgress = new Date().getMinutes() / 60;
-  
+    let sRemainF = new Date().getSeconds() / 60;
+ 
+    let mRemainP: number  = new Date().getMinutes() % 6;
+    let mRemainF: number = new Date().getMinutes() // 6;
     //Draw background boxes
     this.backgroundBox.clear();
     this.backgroundBox.beginFill(colorSet[2]);
