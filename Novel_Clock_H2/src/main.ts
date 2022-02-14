@@ -12,6 +12,8 @@ let colorSet: Array<number> = [];
 let pedalL: number; 
 let pedalW: number;
 let centerS: number;
+let boxHeight: number = window.innerHeight - 50;
+let boxWidth: number = (window.innerWidth - 100) / 3;
 let colorWinter: Array<number> = [0x931A25, 0xE97171, 0xF5EFEF];
 let colorSpring: Array<number> = [0xEFD9D1, 0xD8AC9C, 0x999B84];
 let colorSummer: Array<number> = [0xffca00, 0x240d00, 0x648e00];
@@ -25,15 +27,15 @@ const main = async () => {
   app.renderer.view.style.position = 'absolute';
   app.renderer.view.style.display = 'block';
   app.renderer.resize(window.innerWidth, window.innerHeight);
-  app.renderer.backgroundColor = 0xFFB200;
-  
+  app.renderer.backgroundColor = 0x424949;
+
+  let backgroundBox = new PIXI.Graphics();
+  app.stage.addChild(backgroundBox);
+
   let petal = new PIXI.Graphics();
   app.stage.addChild(petal);
 
   let center = new PIXI.Graphics();
-  app.stage.addChild(center);
-
-  let backgroundBox = new PIXI.Graphics();
   app.stage.addChild(center);
 
   // Handle window resizing
@@ -48,13 +50,9 @@ const main = async () => {
     center,
     backgroundBox
   };
-
-
   app.ticker.add(update, context);
 
 }
-  
-
   
 
   function update(this: any, delta: number) {
@@ -63,22 +61,22 @@ const main = async () => {
       colorSet = colorWinter;
       pedalL = 23;
       pedalW = 20;
-      centerS = 2;
+      centerS = 5;
     } else if (new Date().getMonth() == 2 || new Date().getMonth() == 3 || new Date().getMonth() == 4){
       colorSet = colorSpring;
       pedalL = 25;
       pedalW = 20;
-      centerS = 1;
+      centerS = 5;
     } else if (new Date().getMonth() == 5 || new Date().getMonth() == 6 || new Date().getMonth() == 7){
       colorSet = colorSummer;
       pedalL = 30;
       pedalW = 15;
-      centerS = 5;
+      centerS = 30;
     } else if (new Date().getMonth() == 8 || new Date().getMonth() == 9 || new Date().getMonth() == 10){
       colorSet = colorAutumn;
       pedalL = 30;
       pedalW = 8;
-      centerS = 1;
+      centerS = 3;
     } 
   
     //Time convert
@@ -88,16 +86,54 @@ const main = async () => {
     //Draw background boxes
     this.backgroundBox.clear();
     this.backgroundBox.beginFill(colorSet[2]);
+    
+    for(let i = 0; i < 3; i++){
+      this.backgroundBox.pivot.x = (window.innerWidth - 100) / 6;
+      this.backgroundBox.pivot.y = window.innerHeight / 2 - 25;
+      this.backgroundBox.drawRoundedRect(
+        25 + boxWidth / 2 + i * (boxWidth + 25) , 
+        window.innerHeight / 2, 
+        boxWidth, 
+        boxHeight, 
+        30
+        );
+
+    }
     this.backgroundBox.endFill();
 
-    //Draw pedals
-    this.pedal.clear();
-    this.pedal.beginFill(colorSet[0]);
-    this.pedal.endFill();
+    // //Draw pedals
+    // this.pedal.clear();
+    // this.pedal.beginFill(colorSet[0]);
+    // this.pedal.endFill();
 
     //Draw center circles
     this.center.clear();
     this.center.beginFill(colorSet[1]);
+    for(let i = 0; i < 4; i++){
+      this.center.drawCircle(
+        25 + boxWidth / 2,
+        window.innerHeight / 5 + 15 + i * boxHeight / 5,
+        centerS
+      );
+    }
+    for (let m = 0; m < 5; m++){
+      for (let n = 0; n < 2; n++){
+        this.center.drawCircle(
+          50 + 4 * boxWidth / 3 + n * boxWidth / 3,
+          boxHeight / 6 + 25 + m * boxHeight / 6,
+          centerS
+        );
+      }
+    }
+    for (let p = 0; p < 5; p++){
+      for (let q = 0; q < 2; q++){
+        this.center.drawCircle(
+          75 + 7 * boxWidth / 3 + q * boxWidth / 3,
+          boxHeight / 6 + 25 + p * boxHeight / 6,
+          centerS
+        );
+      }
+    }
     this.center.endFill();
 
 
