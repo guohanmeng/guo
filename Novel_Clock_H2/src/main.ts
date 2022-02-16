@@ -1,4 +1,4 @@
-// Assignment 2 - Xinyu Liu Carrot
+// Assignment 3 - Xinyu Liu Carrot
 
 import * as PIXI from "pixi.js"
 
