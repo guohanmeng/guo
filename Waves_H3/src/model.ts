@@ -6,8 +6,9 @@ export class Model {
     buttonData: any = {
         width: 200,
         height: 100,
-        firstColor: '#3d983d',
-        secondColor: '#c83131',
+        firstColor: '#000000',
+        secondColor: '#FFDA00',
+        thirdColor: '#ffffff'
     };
 
     mousePos: Point = new Point(window.innerWidth, 0);

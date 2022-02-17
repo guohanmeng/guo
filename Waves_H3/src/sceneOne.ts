@@ -1,4 +1,4 @@
-import { Point, Polygon, Sprite } from 'pixi.js'
+import { Point, Polygon, Sprite, Graphics } from 'pixi.js'
 import { lerp } from './easing';
 import { Model, SceneState } from './model'
 import { Scene } from './scene'
