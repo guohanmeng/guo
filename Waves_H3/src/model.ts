@@ -4,8 +4,8 @@ export class Model {
     private static instance: Model
 
     buttonData: any = {
-        width: 200,
-        height: 100,
+        width: window.innerWidth,
+        height: window.innerHeight,
         firstColor: '#000000',
         secondColor: '#FFDA00',
         thirdColor: '#ffffff'

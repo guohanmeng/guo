@@ -21,14 +21,6 @@ export class Scene {
         this.background.drawRect(0, 0, window.innerWidth, window.innerHeight);
         this.container.addChild(this.background);
     
-        // this.button = new Button(0,0,200,100,"Button");
-        // this.button.root.zIndex = 100;
-        // this.button.on('pointerover', () => { this.button.isOver = true })
-        // this.button.on('pointerout', () => { this.button.isOver = false })
-        // this.button.on('pointerdown', () => { this.button.isPressed = true })
-        // this.button.on('pointerup', () => { this.button.isPressed = false })
-
-        // this.container.addChild(this.button.root)
     }
 
     update() { }
