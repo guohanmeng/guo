@@ -131,9 +131,9 @@ function update(this: any, delta: number) {
   });
   // tl.to(triHeights, { value: (window.innerHeight - 40) * Math.sin(elaspsedTime), duration: 1 });
   tl.to(triHeights, { stagger: Math.sin(0.1), value: window.innerHeight - 40, duration: 1, yoyo: true });
-  tl.to(triHeights, { stagger: Math.sin(0.1), value: 0, ease:"power2.inOut", duration: 1, yoyo: true }, "< 1");
+  tl.to(triHeights, { stagger: Math.sin(0.1), value: 0, ease:"power2.out", duration: 1, yoyo: true }, "< 1");
   tl.to(triHeights2, { stagger: Math.sin(0.1), value: window.innerHeight - 40, duration: 1, yoyo: true}, "< 1");
-  tl.to(triHeights2, { stagger: Math.sin(0.1), value: 0, ease:"power2.inOut", duration: 1, yoyo: true }, "< 2");
+  tl.to(triHeights2, { stagger: Math.sin(0.1), value: 0, ease:"power2.out", duration: 1, yoyo: true }, "< 2");
   // gsap.to(triHeights, { stagger: Math.sin(0.1), value: window.innerHeight - 40, duration: 1, yoyo: true });
   // triHeights.forEah((height: number, i: number) => {
   //   if (height == (window.innerHeight - 40)){
