@@ -103,7 +103,8 @@ function update(this: any, delta: number) {
   });
   // tl.to(triHeights, { value: (window.innerHeight - 40) * Math.sin(elaspsedTime), duration: 1 });
   gsap.to(triHeights, { stagger: Math.sin(elaspsedTime), value: window.innerHeight - 40, duration: 1 });
-  gsap.to(triHeights, { stagger: 2 * Math.sin(elaspsedTime), value: 0, duration: 1 });
+ 
+  // gsap.to(triHeights, { stagger: 1 + Math.sin(elaspsedTime), value: 0, duration: 1 });
 
 
   // tl.delay(Math.sin(elaspsedTime));
