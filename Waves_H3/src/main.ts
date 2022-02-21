@@ -9,8 +9,13 @@ import { Model, SceneState } from './model'
 import { ContextSystem, LineStyle, UPDATE_PRIORITY } from "pixi.js";
 let sizes: any = [];
 let triHeights: any = [];
+let triHeights2: any = [];
+let reachH: any = [];
 let triX: any = [];
 let lines: Array<PIXI.Graphics> =[];
+let lines2: Array<PIXI.Graphics> =[];
+let lines1Con = new PIXI.Container();
+// let lines2Con = new PIXI.Container();
 
 let tl = gsap.timeline();
 let mModel = new Model();
@@ -41,10 +46,22 @@ const main = async () => {
     element.x = 20 + i * (triWidth + gapWidth);
     element.y = 20;
     lines.push(element);
-    sizes[i] = {
+    triHeights[i] = {
       value: 0,
     };
-    triHeights[i] = {
+    triX[i] = {
+      value: 0,
+    };
+    lines1Con.addChild(element);
+    app.stage.addChild(element);
+  }
+
+  for (let i = 0; i < 40; i++) {
+    const element = new PIXI.Graphics();
+    element.x = 20 + i * (triWidth + gapWidth);
+    element.y = 20;
+    lines2.push(element);
+    triHeights2[i] = {
       value: 0,
     };
     triX[i] = {
@@ -52,6 +69,7 @@ const main = async () => {
     };
     app.stage.addChild(element);
   }
+
 
   // GUI
   const gui = new dat.GUI()
@@ -78,7 +96,9 @@ const main = async () => {
 
 
   let context = {
-    lines
+    lines,
+    lines2,
+    lines1Con
   };
   app.ticker.add(update, context);
  
@@ -101,8 +121,29 @@ function update(this: any, delta: number) {
     element.drawRect(0, 0, triWidth, triHeights[i].value);
     // element.drawRect(triX[i], 0, triWidth, triHeights[i].value);
   });
+  lines1Con.rotation = 180;
+
+  this.lines2.forEach((element: PIXI.Graphics, i: number) => {
+    element.clear();
+    element.beginFill(mModel.colorData.thirdColor);
+    element.drawRect(0, 0, triWidth, triHeights2[i].value);
+    // element.drawRect(triX[i], 0, triWidth, triHeights[i].value);
+  });
   // tl.to(triHeights, { value: (window.innerHeight - 40) * Math.sin(elaspsedTime), duration: 1 });
-  gsap.to(triHeights, { stagger: Math.sin(elaspsedTime), value: window.innerHeight - 40, duration: 1 });
+  tl.to(triHeights, { stagger: Math.sin(0.1), value: window.innerHeight - 40, duration: 1, yoyo: true });
+  tl.to(triHeights2, { stagger: Math.sin(0.1), value: window.innerHeight - 40, duration: 1, yoyo: true}, "< 1");
+  // gsap.to(triHeights, { stagger: Math.sin(0.1), value: window.innerHeight - 40, duration: 1, yoyo: true });
+  // triHeights.forEah((height: number, i: number) => {
+  //   if (height == (window.innerHeight - 40)){
+  //     reachH[i] = true;
+  //   } 
+  //   if(reachH[i] == true) {
+  //     tl.fromTo(triHeights[i], { value: window.innerHeight - 40, duration: 1 }, {value: 0, duration: 1 });
+  //   }
+  //   reachH[i] = false;
+  // })
+  
+ 
  
   // gsap.to(triHeights, { stagger: 1 + Math.sin(elaspsedTime), value: 0, duration: 1 });
 
