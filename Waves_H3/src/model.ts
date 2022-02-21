@@ -3,15 +3,12 @@ import { Point } from "pixi.js";
 export class Model {
     private static instance: Model
 
-    buttonData: any = {
-        width: window.innerWidth,
-        height: window.innerHeight,
-        firstColor: '#000000',
-        secondColor: '#FFDA00',
-        thirdColor: '#ffffff'
+    colorData: any = {
+        firstColor: 0x000000,
+        secondColor: 0xe8b309,
+        thirdColor: 0xffffff
     };
 
-    mousePos: Point = new Point(window.innerWidth, 0);
 
     elapsedTime: number = 0;
     sceneState: SceneState = SceneState.first;
