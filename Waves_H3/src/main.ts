@@ -10,6 +10,8 @@ import { ContextSystem, LineStyle, UPDATE_PRIORITY } from "pixi.js";
 let sizes: any = [];
 let triHeights: any = [];
 let triHeights2: any = [];
+let Wave1Color = 0x00000;
+let Wave2Color = 0xffffff;
 let reachH: any = [];
 let triX: any = [];
 let lines: Array<PIXI.Graphics> =[];
@@ -73,9 +75,9 @@ const main = async () => {
 
   // GUI
   const gui = new dat.GUI()
-  gui.addColor(mModel.getInstance().colorData, 'firstColor')
-  gui.addColor(mModel.getInstance().colorData, 'secondColor')
-  gui.addColor(mModel.getInstance().colorData, 'thirdColor')
+  gui.addColor(mModel.getInstance().colorData, 'firstColor').onChange( function() { Wave1Color = mModel.colorData.firstColor } );
+  gui.addColor(mModel.getInstance().colorData, 'secondColor').onChange( function() { app.renderer.backgroundColor = mModel.colorData.secondColor} );
+  gui.addColor(mModel.getInstance().colorData, 'thirdColor').onChange( function() { Wave2Color = mModel.colorData.thirdColor } );
   let timelineFolder = gui.addFolder("timeline");
   timelineFolder.open();
   let tlCallbacks = {
@@ -116,16 +118,26 @@ function update(this: any, delta: number) {
   // }
 
   this.lines.forEach((element: PIXI.Graphics, i: number) => {
+    let triH = 0;
     element.clear();
-    element.beginFill(mModel.colorData.firstColor);
+    element.beginFill(Wave1Color);
+    if (triHeights[i].value <= 200){
+      triH = 0;
+    } else{
+      triH = triHeights[i].value - 200;
+    }
     element.drawRect(0, 0, triWidth, triHeights[i].value);
+    element.endFill();
+    element.beginFill(Wave2Color);
+    element.drawRect(0, 0, triWidth, triH);
+    element.endFill();
     // element.drawRect(triX[i], 0, triWidth, triHeights[i].value);
   });
 
 
   this.lines2.forEach((element: PIXI.Graphics, i: number) => {
     element.clear();
-    element.beginFill(mModel.colorData.thirdColor);
+    element.beginFill(Wave2Color);
     element.drawRect(0, 0, triWidth, triHeights2[i].value);
     // element.drawRect(triX[i], 0, triWidth, triHeights[i].value);
   });
