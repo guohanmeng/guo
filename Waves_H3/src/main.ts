@@ -136,9 +136,18 @@ function update(this: any, delta: number) {
 
 
   this.lines2.forEach((element: PIXI.Graphics, i: number) => {
+    let triH2;
     element.clear();
     element.beginFill(Wave2Color);
     element.drawRect(0, 0, triWidth, triHeights2[i].value);
+    if (triHeights2[i].value <= 200){
+      triH2 = 0;
+    } else{
+      triH2 = triHeights2[i].value - 200;
+    }
+    element.beginFill(Wave1Color);
+    element.drawRect(0, 0, triWidth, triH2);
+    element.endFill();
     // element.drawRect(triX[i], 0, triWidth, triHeights[i].value);
   });
   // tl.to(triHeights, { value: (window.innerHeight - 40) * Math.sin(elaspsedTime), duration: 1 });
