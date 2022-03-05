@@ -6,38 +6,17 @@ import { gsap } from "gsap";
 import { Model, SceneState } from './model';
 import { ContextSystem, LineStyle, UPDATE_PRIORITY } from "pixi.js";
 
-
-var path = [100, 200, 200, 200, 240, 100];
-
-let path2 = [{
-  x: 0,
-  y: 0
-}];
-
-for (let i = 0;i < path.length; i=i+2) {
-  path2.push({x: path[i], y: path[i+1]})
-}
-let graphics = new PIXI.Graphics()
-graphics.lineStyle(10, 0x3500FA, 1);
-graphics.bezierCurveTo(100, 200, 200, 200, 240, 100)
-// graphics.endFill();
-app.stage.addChild(graphics);
-
-
 gsap.registerPlugin(MotionPathPlugin);
 
-gsap.to(bunny, {
-  duration: 5, 
-  repeat: 12,
-  repeatDelay: 3,
-  yoyo: true,
-  ease: "none",
-  motionPath:{
-    path: path2,
-    // autoRotate: true,
-    type: 'cubic'
-  }
-});
+
+PIXI.Loader.shared.add("assets/spriteSheetTrial.json").load(setup);
+function setup() {
+  let sheet: any = PIXI.Loader.shared.resources["assets/spriteSheetTrial.json"].spritesheet;
+  let snowball = new PIXI.AnimatedSprite(sheet.animations["anim_name"]);
+}
+
+
+
 
 // MotionPathHelper.create('#path')
 
@@ -69,9 +48,35 @@ const main = async () => {
   app.renderer.resize(window.innerWidth, window.innerHeight);
   app.renderer.backgroundColor = mModel.colorData.secondColor;
 
-  let bunny = new PIXI.Sprite.fromImage('https://pixijs.io/examples-v4/examples/assets/bunny.png')
-app.stage.addChild(bunny)
-bunny.anchor.set(0.5)
+  var path = [100, 200, 200, 200, 240, 100];
+
+
+  let path2 = [{
+    x: 0,
+    y: 0
+  }];
+  
+  for (let i = 0;i < path.length; i=i+2) {
+    path2.push({x: path[i], y: path[i+1]})
+  }
+  let graphics = new PIXI.Graphics()
+  graphics.lineStyle(10, 0x3500FA, 1);
+  graphics.bezierCurveTo(100, 200, 200, 200, 240, 100)
+  // graphics.endFill();
+
+  gsap.to(bunny, {
+    duration: 5, 
+    repeat: 12,
+    repeatDelay: 3,
+    yoyo: true,
+    ease: "none",
+    motionPath:{
+      path: path2,
+      // autoRotate: true,
+      type: 'cubic'
+    }
+  });
+
   // Handle window resizing
   window.addEventListener('resize', (_e) => {
       app.renderer.resize(window.innerWidth, window.innerHeight);

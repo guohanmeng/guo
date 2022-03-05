@@ -1,0 +1,63 @@
+{"frames": {
+
+"spr_snowball_walk_1.png":
+{
+	"frame": {"x":514,"y":420,"w":429,"h":421},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":90,"y":80,"w":429,"h":421},
+	"sourceSize": {"w":600,"h":600}
+},
+"spr_snowball_walk_2.png":
+{
+	"frame": {"x":541,"y":1,"w":444,"h":417},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":79,"y":84,"w":444,"h":417},
+	"sourceSize": {"w":600,"h":600}
+},
+"spr_snowball_walk_3.png":
+{
+	"frame": {"x":1,"y":837,"w":467,"h":421},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":52,"y":80,"w":467,"h":421},
+	"sourceSize": {"w":600,"h":600}
+},
+"spr_snowball_walk_4.png":
+{
+	"frame": {"x":1,"y":416,"w":511,"h":419},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":82,"w":511,"h":419},
+	"sourceSize": {"w":600,"h":600}
+},
+"spr_snowball_walk_5.png":
+{
+	"frame": {"x":1,"y":1,"w":538,"h":413},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":91,"w":538,"h":413},
+	"sourceSize": {"w":600,"h":600}
+},
+"spr_snowball_walk_6.png":
+{
+	"frame": {"x":470,"y":843,"w":522,"h":419},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":82,"w":522,"h":419},
+	"sourceSize": {"w":600,"h":600}
+}},
+"animations": {
+	"spr_snowball_walk": ["spr_snowball_walk_1.png","spr_snowball_walk_2.png","spr_snowball_walk_3.png","spr_snowball_walk_4.png","spr_snowball_walk_5.png","spr_snowball_walk_6.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spriteSheetTrial.png",
+	"format": "RGBA8888",
+	"size": {"w":993,"h":1263},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:f987ab407d4fb022dc424b761997b419:4bb2bd04daf18d88c28f1a39a19450cd:949c86b18601beeed55a23540ca58be9$"
+}
+}
