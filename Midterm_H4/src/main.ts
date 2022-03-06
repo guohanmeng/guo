@@ -5,199 +5,146 @@ import * as dat from "dat.gui";
 import { gsap } from "gsap";
 import { Model, SceneState } from './model';
 import { ContextSystem, LineStyle, UPDATE_PRIORITY } from "pixi.js";
-
-gsap.registerPlugin(MotionPathPlugin);
-
-
-PIXI.Loader.shared.add("assets/spriteSheetTrial.json").load(setup);
-function setup() {
-  let sheet: any = PIXI.Loader.shared.resources["assets/spriteSheetTrial.json"].spritesheet;
-  let snowball = new PIXI.AnimatedSprite(sheet.animations["anim_name"]);
-}
-
-
-
-
-// MotionPathHelper.create('#path')
-
-let sizes: any = [];
-let triHeights: any = [];
-let triHeights2: any = [];
-let Wave1Color = 0x00000;
-let Wave2Color = 0xffffff;
-let reachH: any = [];
-let triX: any = [];
-let lines: Array<PIXI.Graphics> =[];
-let lines2: Array<PIXI.Graphics> =[];
-let lines1Con = new PIXI.Container();
-// let lines2Con = new PIXI.Container();
-
+import { MotionPathPlugin } from "gsap/MotionPathPlugin.js";
 let tl = gsap.timeline();
 let mModel = new Model();
-// let sceneOne: SceneOne = new SceneOne(mModel);
-// let sceneTwo: SceneTwo = new SceneTwo(mModel);
-let triWidth = window.innerHeight / 40;
-let gapWidth = window.innerHeight / 20;
-const main = async () => {
-  let app = new PIXI.Application();
+let CurvePoints: Array<PIXI.AnimatedSprite> =[];
+let Kids: Array<PIXI.AnimatedSprite> =[];
+let Path: Array<any> = [];
+let app = new PIXI.Application();
+app.loader
+    .add('snow1', 'assets/spr_snowball_walk/spr_snowball_walk_1.png')
+    .add('snow2', 'assets/spr_snowball_walk/spr_snowball_walk_2.png')
+    .add('snow3', 'assets/spr_snowball_walk/spr_snowball_walk_3.png')
+    .add('snow4', 'assets/spr_snowball_walk/spr_snowball_walk_4.png')
+    .add('snow5', 'assets/spr_snowball_walk/spr_snowball_walk_5.png')
+    .add('snow6', 'assets/spr_snowball_walk/spr_snowball_walk_6.png')
+    .load(onLoaded);
 
-  // Application Display
-  document.body.style.margin = '0';
-  app.renderer.view.style.position = 'absolute';
-  app.renderer.view.style.display = 'block';
-  app.renderer.resize(window.innerWidth, window.innerHeight);
-  app.renderer.backgroundColor = mModel.colorData.secondColor;
+// PIXI.Loader.shared.add("assets/spriteSheetTrial.json").load(onLoaded);
+function onLoaded() {
+    // create an array to store the textures
+    const snowballTextures = [];
+    let i;
 
-  var path = [100, 200, 200, 200, 240, 100];
-
-
-  let path2 = [{
-    x: 0,
-    y: 0
-  }];
-  
-  for (let i = 0;i < path.length; i=i+2) {
-    path2.push({x: path[i], y: path[i+1]})
-  }
-  let graphics = new PIXI.Graphics()
-  graphics.lineStyle(10, 0x3500FA, 1);
-  graphics.bezierCurveTo(100, 200, 200, 200, 240, 100)
-  // graphics.endFill();
-
-  gsap.to(bunny, {
-    duration: 5, 
-    repeat: 12,
-    repeatDelay: 3,
-    yoyo: true,
-    ease: "none",
-    motionPath:{
-      path: path2,
-      // autoRotate: true,
-      type: 'cubic'
+    for (i = 0; i < 6; i++) {
+        const texture = PIXI.Texture.from(`snow${i + 1}`);
+        snowballTextures.push(texture);
     }
-  });
 
-  // Handle window resizing
-  window.addEventListener('resize', (_e) => {
-      app.renderer.resize(window.innerWidth, window.innerHeight);
-  });
-
-  document.body.appendChild(app.view);
-
-  for (let i = 0; i < 40; i++) {
-    const element = new PIXI.Graphics();
-    element.x = 20 + i * (triWidth + gapWidth);
-    element.y = 20;
-    lines.push(element);
-    triHeights[i] = {
-      value: 0,
-    };
-    triX[i] = {
-      value: 0,
-    };
-    lines1Con.addChild(element);
-    app.stage.addChild(element);
-  }
-
-  for (let i = 0; i < 40; i++) {
-    const element = new PIXI.Graphics();
-    element.x = 20 + i * (triWidth + gapWidth);
-    element.y = 20;
-    lines2.push(element);
-    triHeights2[i] = {
-      value: 0,
-    };
-    triX[i] = {
-      value: 0,
-    };
-    app.stage.addChild(element);
-  }
+    var path = [500, 200, 850, 100, 1000, 200, window.innerWidth + 100, 200]; 
+  
+    let path2 = [{
+      x: 0,
+      y: 0
+    }];
+  
 
 
-  // GUI
-  const gui = new dat.GUI()
-  gui.addColor(mModel.getInstance().colorData, 'firstColor').onChange( function() { Wave1Color = mModel.colorData.firstColor } );
-  gui.addColor(mModel.getInstance().colorData, 'secondColor').onChange( function() { app.renderer.backgroundColor = mModel.colorData.secondColor} );
-  gui.addColor(mModel.getInstance().colorData, 'thirdColor').onChange( function() { Wave2Color = mModel.colorData.thirdColor } );
-  let timelineFolder = gui.addFolder("timeline");
-  timelineFolder.open();
-  let tlCallbacks = {
-      pause: () => tl.pause(),
-      play: () => tl.play(),
-      reverse: () => tl.reverse(),
-      progress: 0
-  }
-
-  timelineFolder.add(tlCallbacks, "pause");
-  timelineFolder.add(tlCallbacks, "play");
-  timelineFolder.add(tlCallbacks, "reverse");
-  timelineFolder.add(tlCallbacks, "progress", 0.0, 1.0, 0.01).onChange((value) => {
-      tl.play()
-      tl.progress(value)
-      tl.pause()
-  });
+    // let graphics = new PIXI.Graphics()
+    // graphics.lineStyle(10, 0xffffff, 1);
+    // graphics.bezierCurveTo(500, 200, 850, 1000, window.innerWidth + 100, 200);
+    // app.stage.addChild(graphics);
+    // graphics.endFill();
+  
+    gsap.registerPlugin(MotionPathPlugin);
 
 
-  let context = {
-    lines,
-    lines2,
-    lines1Con
-  };
-  app.ticker.add(update, context);
+    for (i = 0; i < 6; i++) {
+    // create an snowball AnimatedSprite
+        const snowball = new PIXI.AnimatedSprite(snowballTextures);
+        snowball.animationSpeed = 0.1;
+        snowball.anchor.set(0.5);
+        // snowball.rotation = Math.random() * Math.PI;
+        snowball.scale.set(0.09);
+        snowball.gotoAndPlay(0);
+        Kids.push(snowball);
+        app.stage.addChild(snowball);
+
+
+        const gui = new dat.GUI()
+        // gui.addColor(mModel.getInstance().colorData, 'firstColor').onChange( function() { Wave1Color = mModel.colorData.firstColor } );
+        // gui.addColor(mModel.getInstance().colorData, 'secondColor').onChange( function() { app.renderer.backgroundColor = mModel.colorData.secondColor} );
+        // gui.addColor(mModel.getInstance().colorData, 'thirdColor').onChange( function() { Wave2Color = mModel.colorData.thirdColor } );
+        let timelineFolder = gui.addFolder("timeline");
+        timelineFolder.open();
+        let tlCallbacks = {
+            pause: () => tl.pause(),
+            play: () => tl.play(),
+            reverse: () => tl.reverse(),
+            progress: 0
+        }
+      
+        timelineFolder.add(tlCallbacks, "pause");
+        timelineFolder.add(tlCallbacks, "play");
+        timelineFolder.add(tlCallbacks, "reverse");
+        timelineFolder.add(tlCallbacks, "progress", 0.0, 1.0, 0.01).onChange((value) => {
+            tl.play()
+            tl.progress(value)
+            tl.pause()
+        });
+
+        let context = {
+          CurvePoints
+        };
+        app.ticker.add(update, context);
+    }
+
+
+    // start animating
+    app.start();
+
+
+ 
+    // Application Display
+
+    document.body.style.margin = '0';
+    app.renderer.view.style.position = 'absolute';
+    app.renderer.view.style.display = 'block';
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+    app.renderer.backgroundColor = 0x00000;
+  
+
+  
+    // Handle window resizing
+    window.addEventListener('resize', (_e) => {
+        app.renderer.resize(window.innerWidth, window.innerHeight);
+    });
+  
+    document.body.appendChild(app.view);
+  
  
 }
 
 let elaspsedTime = 0;
 
-
 function update(this: any, delta: number) {
 
   elaspsedTime += 0.1;
 
-  // for(let j = 0; j < triX.length; j++){
-  //   triX[j] = j * (triWidth + gapWidth);
-  // }
+  for (let i = 0; i < 50; i ++) {
+    Path.push({x: 10 * i, y: Math.sin(0.1)})
+  }
 
-  this.lines.forEach((element: PIXI.Graphics, i: number) => {
-    let triH = 0;
-    element.clear();
-    element.beginFill(Wave1Color);
-    if (triHeights[i].value <= 200){
-      triH = 0;
-    } else{
-      triH = triHeights[i].value - 200;
-    }
-    element.drawRect(0, 0, triWidth, triHeights[i].value);
-    element.endFill();
-    element.beginFill(Wave2Color);
-    element.drawRect(0, 0, triWidth, triH);
-    element.endFill();
+  this.CurvePoints.forEach((point: PIXI.AnimatedSprite, i: number) => {
+    point.x = 50 * i;
     // element.drawRect(triX[i], 0, triWidth, triHeights[i].value);
   });
 
-
-  this.lines2.forEach((element: PIXI.Graphics, i: number) => {
-    let triH2;
-    element.clear();
-    element.beginFill(Wave2Color);
-    element.drawRect(0, 0, triWidth, triHeights2[i].value);
-    if (triHeights2[i].value <= 200){
-      triH2 = 0;
-    } else{
-      triH2 = triHeights2[i].value - 200;
-    }
-    element.beginFill(Wave1Color);
-    element.drawRect(0, 0, triWidth, triH2);
-    element.endFill();
-    // element.drawRect(triX[i], 0, triWidth, triHeights[i].value);
-  });
-  // tl.to(triHeights, { value: (window.innerHeight - 40) * Math.sin(elaspsedTime), duration: 1 });
-  tl.to(triHeights, { stagger: Math.sin(0.1), value: window.innerHeight - 40, duration: 1, yoyo: true });
-  tl.to(triHeights, { stagger: Math.sin(0.1), value: 0, ease:"power2.out", duration: 1, yoyo: true }, "< 1");
-  tl.to(triHeights2, { stagger: Math.sin(0.1), value: window.innerHeight - 40, duration: 1, yoyo: true}, "< 1");
-  tl.to(triHeights2, { stagger: Math.sin(0.1), value: 0, ease:"power2.out", duration: 1, yoyo: true }, "< 1.1");
 }
 
-main();
-
+for(let i = 0; i < Kids.length; i++){
+  gsap.to(Kids[i], {
+    duration: 12,
+    delay: i * 0.5, 
+    repeat: 12,
+    repeatDelay: 2,
+    ease: "none",
+    motionPath:{
+      path: Path,
+      // autoRotate: true,
+      // curviness: 1
+    }
+  });
+}
 
