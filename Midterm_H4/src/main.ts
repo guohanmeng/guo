@@ -9,6 +9,7 @@ import { MotionPathPlugin } from "gsap/MotionPathPlugin.js";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {$} from "jquery";
 
+
 let tl = gsap.timeline();
 let mModel = new Model();
 let CurvePoints: Array<PIXI.AnimatedSprite> =[];
@@ -25,33 +26,15 @@ let renderer = new PIXI.Renderer({
 let KidTextures_1: Array<any> = [];
 let KidTextures_2: Array<any> = [];
 let KidTextures_3: Array<any> = [];
-
-// Code By Webdevtrick ( https://webdevtrick.com )
-// var one = "#11cf72",
-//  two = "#1da1f2",
-//  three = "#ff3f3f",
-//  four = "#ff0099",
-//  five = "#ff7a00";
- 
-// $(window).on("scroll touchmove", function() {
-//  if ($(document).scrollTop() >= $("#one").position().top) {
-//  $('body').css('background', $("#one").attr("data-color"));
- 
-//  };
-//  if ($(document).scrollTop() > $("#two").position().top) {
-//  $('body').css('background', $("#two").attr("data-color"))
-//  };
-//  if ($(document).scrollTop() > $("#three").position().top) {
- 
-//  $('body').css('background', $("#three").attr("data-color"))
-//  };
-//  if ($(document).scrollTop() > $("#four").position().top) {
- 
-//  $('body').css('background', $("#four").attr("data-color"))
-//  };
-
-// });
-
+let Buildings_1: Array<PIXI.Container> = [];
+let Buildings_2: Array<PIXI.Container> = [];
+let Buildings_3: Array<PIXI.Container> = [];
+let Buildings_4: Array<PIXI.Container> = [];
+let buildingH1: any = [];
+let buildingH2: any = [];
+let buildingH3: any = [];
+let buildingH4: any = [];
+// load kid texture
 app.loader
     .add('kid1_1', 'assets/spr_kids/kid1_1.png')
     .add('kid1_2', 'assets/spr_kids/kid1_2.png')
@@ -81,9 +64,11 @@ app.loader
 
 
 // PIXI.Loader.shared.add("assets/spriteSheetTrial.json").load(onLoaded);
-function onLoaded() {
-    // create an array to store the textures
 
+// After loading
+function onLoaded() {
+
+    // Push textures to arrays
     for (let i = 0; i < 8; i++) {
         const texture = PIXI.Texture.from(`kid1_${i + 1}`);
         KidTextures_1.push(texture);
@@ -99,22 +84,20 @@ function onLoaded() {
       KidTextures_3.push(texture);
     }
 
+    // define path points
     var path = [300, 300, 550, 400, window.innerWidth + 20, 500, window.innerWidth + 20, 600, 0, 1000, 0, 1300, 500, 1500, window.innerWidth + 20, 1500]; 
   
-    let path2 = [{
-      x: 0,
-      y: 0
-    }];
+    // declare path
+    let path2 = [
+      {x: 0, y: 0},
+      {}
+    ];
 
+    // push path pointsto the declared path
     for (let i = 0; i < path.length; i=i+2) {
       path2.push({x: path[i], y: path[i+1]})
     }
 
-    // let graphics = new PIXI.Graphics()
-    // graphics.lineStyle(10, 0xffffff, 1);
-    // graphics.bezierCurveTo(500, 200, 850, 1000, window.innerWidth + 100, 200);
-    // app.stage.addChild(graphics);
-    // graphics.endFill();
   
     gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
@@ -211,27 +194,24 @@ function onLoaded() {
         }
       });
 
-      // const gui = new dat.GUI()
-      // // gui.addColor(mModel.getInstance().colorData, 'firstColor').onChange( function() { Wave1Color = mModel.colorData.firstColor } );
-      // // gui.addColor(mModel.getInstance().colorData, 'secondColor').onChange( function() { app.renderer.backgroundColor = mModel.colorData.secondColor} );
-      // // gui.addColor(mModel.getInstance().colorData, 'thirdColor').onChange( function() { Wave2Color = mModel.colorData.thirdColor } );
-      // let timelineFolder = gui.addFolder("timeline");
-      // timelineFolder.open();
-      // let tlCallbacks = {
-      //     pause: () => tl.pause(),
-      //     play: () => tl.play(),
-      //     reverse: () => tl.reverse(),
-      //     progress: 0
-      // }
+      const gui = new dat.GUI()
+      let timelineFolder = gui.addFolder("timeline");
+      timelineFolder.open();
+      let tlCallbacks = {
+          pause: () => tl.pause(),
+          play: () => tl.play(),
+          reverse: () => tl.reverse(),
+          progress: 0
+      }
     
-      // timelineFolder.add(tlCallbacks, "pause");
-      // timelineFolder.add(tlCallbacks, "play");
-      // timelineFolder.add(tlCallbacks, "reverse");
-      // timelineFolder.add(tlCallbacks, "progress", 0.0, 1.0, 0.01).onChange((value) => {
-      //     tl.play()
-      //     tl.progress(value)
-      //     tl.pause()
-      // });
+      timelineFolder.add(tlCallbacks, "pause");
+      timelineFolder.add(tlCallbacks, "play");
+      timelineFolder.add(tlCallbacks, "reverse");
+      timelineFolder.add(tlCallbacks, "progress", 0.0, 1.0, 0.01).onChange((value) => {
+          tl.play()
+          tl.progress(value)
+          tl.pause()
+      });
   
 
       //   let context = {
@@ -239,31 +219,31 @@ function onLoaded() {
       //   };
         // app.ticker.add(update, context);
     
+  // Application Display
 
+  document.body.style.margin = '0';
+  app.renderer.view.style.position = 'absolute';
+  app.renderer.view.style.display = 'block';
+  app.renderer.resize(window.innerWidth, 2000);
+  app.renderer.backgroundColor = 0x00000;
+  // app.renderer.backgroundAlpha = 0;
+
+
+
+  // Handle window resizing
+  window.addEventListener('resize', (_e) => {
+      app.renderer.resize(window.innerWidth, 2000);
+  });
+
+  document.body.appendChild(app.view);
+  // renderer.render(app.stage);
 
     // start animating
     app.start();
 
 
  
-    // Application Display
-
-    document.body.style.margin = '0';
-    app.renderer.view.style.position = 'absolute';
-    app.renderer.view.style.display = 'block';
-    app.renderer.resize(window.innerWidth, 2000);
-    app.renderer.backgroundColor = 0x00000;
-    // app.renderer.backgroundAlpha = 0;
   
-
-  
-    // Handle window resizing
-    window.addEventListener('resize', (_e) => {
-        app.renderer.resize(window.innerWidth, 2000);
-    });
-  
-    document.body.appendChild(app.view);
-    // renderer.render(app.stage);
   
  
 }
