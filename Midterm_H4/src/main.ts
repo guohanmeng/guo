@@ -551,10 +551,10 @@ function update(this: any, delta: number) {
     } else{
       triH = buildingH3[i].value - 200;
     }
-    element.drawRect(0, 1000, triWidth, buildingH3[i].value);
+    element.drawRect(0, 500, triWidth, buildingH3[i].value);
     element.endFill();
     element.beginFill(c);
-    element.drawRect(0, 1000, triWidth, triH);
+    element.drawRect(0, 500, triWidth, triH);
     element.endFill();
   });
 
@@ -562,9 +562,9 @@ function update(this: any, delta: number) {
 
   tl.to(buildingH1, { stagger: Math.sin(0.1), value: 490, ease:"elastic.out(1, 0.3)", duration: 1});
   // tl.to(buildingH1, { stagger: Math.sin(0.1), value: 0, ease:"elastic.out(1, 0.3)", duration: 1}, "< 1");
-  tl.to(triHeights2, { stagger: Math.sin(0.1), value: 700, ease:"elastic.out(1, 0.3)", duration: 1}, "> 8");
+  tl.to(triHeights2, { stagger: Math.sin(0.1), value: 700, ease:"elastic.out(1, 0.3)", duration: 2}, "> 8");
 
-  tl.to(buildingH3, { stagger: Math.sin(0.1), value: 2000, ease:"elastic.out(1, 0.3)", duration: 1}, "> 16");
+  tl.to(buildingH3, { stagger: Math.sin(0.1), value: 2000, ease:"elastic.out(1, 0.3)", duration: 1}, "> 15");
 
   // tl.to(triHeights2, { stagger: Math.sin(0.1), value: 0, ease:"power2.out", duration: 1, yoyo: true }, "< 1.1");
 
