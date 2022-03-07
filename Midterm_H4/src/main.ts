@@ -275,19 +275,34 @@ function onLoaded() {
           app.stage.addChild(element);
         }
       
-        // for (let i = 0; i < 40; i++) {
-        //   const element = new PIXI.Graphics();
-        //   element.x = 20 + i * (triWidth + gapWidth);
-        //   element.y = 20;
-        //   lines2.push(element);
-        //   triHeights2[i] = {
-        //     value: 0,
-        //   };
-        //   triX[i] = {
-        //     value: 0,
-        //   };
-        //   app.stage.addChild(element);
-        // }
+        for (let i = 0; i < 20; i++) {
+          const element = new PIXI.Graphics();
+          element.x = 20 + i * (triWidth + gapWidth);
+          element.y = 520;
+          lines2.push(element);
+          triHeights2[i] = {
+            value: 0,
+          };
+          triX[i] = {
+            value: 0,
+          };
+          app.stage.addChild(element);
+        }
+
+        for (let i = 0; i < 20; i++) {
+          const element = new PIXI.Graphics();
+          element.x = 20 + i * (triWidth + gapWidth);
+          element.y = 1000;
+          buildingW1.push(element);
+          buildingH3[i] = {
+            value: 0,
+          };
+          triX[i] = {
+            value: 0,
+          };
+          lines1Con.addChild(element);
+          app.stage.addChild(element);
+        }
       
       
     // push path pointsto the declared path
@@ -442,7 +457,8 @@ function onLoaded() {
   let context = {
     lines,
     lines2,
-    lines1Con
+    lines1Con,
+    buildingW1
   };
   app.ticker.add(update, context);
  
@@ -487,6 +503,7 @@ function onLoaded() {
 
 let elaspsedTime = 0;
 let c = buildingC1[Math.floor(Math.random() * 6)];
+let c2 = buildingC2[Math.floor(Math.random() * 6)];
 
 function update(this: any, delta: number) {
 
@@ -496,38 +513,59 @@ function update(this: any, delta: number) {
     let triH = 0;
     element.clear();
     element.beginFill(c);
-    if (buildingH1[i].value <= 200){
-      triH = 0;
-    } else{
-      triH = buildingH1[i].value - 200;
-    }
+    // if (buildingH1[i].value <= 200){
+    //   triH = 0;
+    // } else{
+    //   triH = buildingH1[i].value - 200;
+    // }
     element.drawRect(0, 0, triWidth, buildingH1[i].value);
     element.endFill();
-    element.beginFill(c);
-    element.drawRect(0, 0, triWidth, triH);
-    element.endFill();
+    // element.beginFill(c);
+    // element.drawRect(0, 0, triWidth, triH);
+    // element.endFill();
   });
 
 
-  // this.lines2.forEach((element: PIXI.Graphics, i: number) => {
-  //   let triH2;
-  //   element.clear();
-  //   element.beginFill(Wave2Color);
-  //   element.drawRect(0, 0, triWidth, triHeights2[i].value);
-  //   if (triHeights2[i].value <= 200){
-  //     triH2 = 0;
-  //   } else{
-  //     triH2 = triHeights2[i].value - 200;
-  //   }
-  //   element.beginFill(Wave1Color);
-  //   element.drawRect(0, 0, triWidth, triH2);
-  //   element.endFill();
-  //   // element.drawRect(triX[i], 0, triWidth, triHeights[i].value);
-  // });
+  this.lines2.forEach((element: PIXI.Graphics, i: number) => {
+    let triH2;
+    element.clear();
+    element.beginFill(c2);
+    element.drawRect(0, 250, triWidth, triHeights2[i].value);
+    if (triHeights2[i].value <= 200){
+      triH2 = 0;
+    } else{
+      triH2 = triHeights2[i].value - 200;
+    }
+    // element.beginFill(c2);
+    // element.drawRect(0, 300, triWidth, triH2);
+    // element.endFill();
+    // element.drawRect(triX[i], 0, triWidth, triHeights[i].value);
+  });
+
+  this.buildingW1.forEach((element: PIXI.Graphics, i: number) => {
+    let triH = 0;
+    element.clear();
+    element.beginFill(c);
+    if (buildingH3[i].value <= 200){
+      triH = 0;
+    } else{
+      triH = buildingH3[i].value - 200;
+    }
+    element.drawRect(0, 1000, triWidth, buildingH3[i].value);
+    element.endFill();
+    element.beginFill(c);
+    element.drawRect(0, 1000, triWidth, triH);
+    element.endFill();
+  });
+
   // tl.to(triHeights, { value: (window.innerHeight - 40) * Math.sin(elaspsedTime), duration: 1 });
+
   tl.to(buildingH1, { stagger: Math.sin(0.1), value: 490, ease:"elastic.out(1, 0.3)", duration: 1});
   // tl.to(buildingH1, { stagger: Math.sin(0.1), value: 0, ease:"elastic.out(1, 0.3)", duration: 1}, "< 1");
-  // tl.to(triHeights2, { stagger: Math.sin(0.1), value: window.innerHeight - 40, duration: 1, yoyo: true}, "< 1");
+  tl.to(triHeights2, { stagger: Math.sin(0.1), value: 700, ease:"elastic.out(1, 0.3)", duration: 1}, "> 8");
+
+  tl.to(buildingH3, { stagger: Math.sin(0.1), value: 2000, ease:"elastic.out(1, 0.3)", duration: 1}, "> 16");
+
   // tl.to(triHeights2, { stagger: Math.sin(0.1), value: 0, ease:"power2.out", duration: 1, yoyo: true }, "< 1.1");
 
 }
