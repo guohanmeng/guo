@@ -11,6 +11,10 @@ import {$} from "jquery";
 
 
 let tl = gsap.timeline();
+let bl1 = gsap.timeline();
+let bl2 = gsap.timeline();
+let bl3 = gsap.timeline();
+let bl4 = gsap.timeline();
 let mModel = new Model();
 let CurvePoints: Array<PIXI.AnimatedSprite> =[];
 let Kids: Array<PIXI.AnimatedSprite> =[];
@@ -26,14 +30,22 @@ let renderer = new PIXI.Renderer({
 let KidTextures_1: Array<any> = [];
 let KidTextures_2: Array<any> = [];
 let KidTextures_3: Array<any> = [];
-let Buildings_1: Array<PIXI.Container> = [];
-let Buildings_2: Array<PIXI.Container> = [];
-let Buildings_3: Array<PIXI.Container> = [];
-let Buildings_4: Array<PIXI.Container> = [];
+let Buildings_1: PIXI.Container = new PIXI.Container;
+let Buildings_2: PIXI.Container = new PIXI.Container;
+let Buildings_3: PIXI.Container = new PIXI.Container;
+let Buildings_4: PIXI.Container = new PIXI.Container;
 let buildingH1: any = [];
 let buildingH2: any = [];
 let buildingH3: any = [];
 let buildingH4: any = [];
+let buildingW1: any = [];
+let buildingW2: any = [];
+let buildingW3: any = [];
+let buildingW4: any = [];
+let buildingC1: any = [0x9CB529, 0x8B3422, 0x855A51, 0xB58829, 0x71291A, 0xB54229];
+let buildingC2: any = [0x297588, 0x294588, 0x3C2988, 0x6C2988, 0x882975, 0x882946];
+let buildingC3: any = [0x00000];
+
 // load kid texture
 app.loader
     .add('kid1_1', 'assets/spr_kids/kid1_1.png')
@@ -85,16 +97,62 @@ function onLoaded() {
     }
 
     // define path points
-    var path = [300, 300, 550, 400, window.innerWidth + 20, 500, window.innerWidth + 20, 600, 0, 1000, 0, 1300, 500, 1500, window.innerWidth + 20, 1500]; 
+    var path = [
+      350, 450, 
+      window.innerWidth - 20, 500,
+      window.innerWidth + 20, 500, 
+      window.innerWidth + 20, 800, 
+      50, 800, 
+      50, 1300, 
+      500, 1450,
+      window.innerWidth - 20, 1500, 
+      window.innerWidth + 20, 1500,
+      window.innerWidth + 20, 1700,
+      50, 1700,
+      50, 1950,
+      300, 1990,
+      window.innerWidth + 30, 2000,
+      
+    ]; 
   
     // declare path
     let path2 = [
-      {x: 0, y: 0},
-      {}
+      {x: -20, y: 60}
     ];
+ 
+  
+    for (let i = 0; i < 10; i++) {
+      const element = new PIXI.Graphics();
+      const container = new PIXI.Container();
+
+      buildingH1[i] = {
+        value: Math.floor(Math.random() * 180) + 200,
+      };
+      buildingW1[i] = {
+        value: Math.floor(Math.random() * 200) + 100,
+      };
+
+      let AllBW = 0;
+
+      for (let j = 0; j < buildingW1.length; j++){
+        AllBW += buildingW1[j];
+      }
+
+      element.x = AllBW + 20;
+      element.y = 500;
+      element.beginFill(buildingC1[Math.floor(Math.random() * 3)]);
+      element.drawRect(0, 0, buildingW1[i], buildingH1[i]);
+      element.setTransform(window.innerWidth, window.innerHeight, 1, 1, Math.PI, 0, 0, 0, 0);
+
+      container.addChild(element);
+      container.pivot.x = container.width / 2;
+      container.pivot.y = container.height / 2;
+      Buildings_1.addChild(container);
+      app.stage.addChild(container);
+    }
 
     // push path pointsto the declared path
-    for (let i = 0; i < path.length; i=i+2) {
+    for (let i = 0; i < path.length; i = i + 2) {
       path2.push({x: path[i], y: path[i+1]})
     }
 
@@ -132,6 +190,10 @@ function onLoaded() {
       kid3.gotoAndPlay(0);
       Kids.push(kid3);
       app.stage.addChild(kid3);
+
+      for(let i = 0; i < buildingH1.length; i++) {
+        bl1.to(Buildings_1.getChildAt(i), {height: buildingH1[i], duration: 2, ease: "elastic.out(1, 0.3)",repeat:1, yoyo:true},"<");
+      }
 
       gsap.to(kid1, {
         duration: 50,
