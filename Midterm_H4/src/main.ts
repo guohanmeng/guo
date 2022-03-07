@@ -20,7 +20,7 @@ let triX: any = [];
 let lines: Array<PIXI.Graphics> =[];
 let lines2: Array<PIXI.Graphics> =[];
 let lines1Con = new PIXI.Container();
-let triWidth = window.innerHeight / 40;
+let triWidth = 200;
 let gapWidth = window.innerHeight / 20;
 
 //this app
@@ -135,137 +135,137 @@ function onLoaded() {
       {x: -20, y: 60}
     ];
  
-    // create buildings
-    // building1
-    for (let i = 0; i < 10; i++) {
-      let element = new PIXI.Graphics();
-      // let container = new PIXI.Container();
+    // // create buildings
+    // // building1
+    // for (let i = 0; i < 10; i++) {
+    //   let element = new PIXI.Graphics();
+    //   // let container = new PIXI.Container();
 
-      buildingH1[i] = {
-        value: Math.floor(Math.random() * 180) + 200,
-      };
-      buildingW1[i] = {
-        value: Math.floor(Math.random() * 200) + 100,
-      };
+    //   buildingH1[i] = {
+    //     value: Math.floor(Math.random() * 180) + 200,
+    //   };
+    //   buildingW1[i] = {
+    //     value: Math.floor(Math.random() * 200) + 100,
+    //   };
 
-      let AllBW = 0;
+    //   let AllBW = 0;
 
-      for (let j = 0; j < buildingW1.length; j++){
-        AllBW += buildingW1[j];
-      }
+    //   for (let j = 0; j < buildingW1.length; j++){
+    //     AllBW += buildingW1[j];
+    //   }
 
-      element.beginFill(buildingC1[Math.floor(Math.random() * 3)]);
-      element.drawRect(AllBW + 20, 500, buildingW1[i], buildingH1[i]);
+    //   element.beginFill(buildingC1[Math.floor(Math.random() * 3)]);
+    //   element.drawRect(AllBW + 20, 500, buildingW1[i], buildingH1[i]);
 
 
-      // container.addChild(element);
-      // container.pivot.x = container.width / 2;
-      // container.pivot.y = container.height / 2;
-      // container.setTransform(window.innerWidth, window.innerHeight, 1, 1, Math.PI, 0, 0, 0, 0);
-      Buildings_1.addChild(element);
-      app.stage.addChild(element);
-    }
+    //   // container.addChild(element);
+    //   // container.pivot.x = container.width / 2;
+    //   // container.pivot.y = container.height / 2;
+    //   // container.setTransform(window.innerWidth, window.innerHeight, 1, 1, Math.PI, 0, 0, 0, 0);
+    //   Buildings_1.addChild(element);
+    //   app.stage.addChild(element);
+    // }
 
-        // building2
-        for (let i = 0; i < 10; i++) {
-          const element = new PIXI.Graphics();
-          const container = new PIXI.Container();
+    //     // building2
+    //     for (let i = 0; i < 10; i++) {
+    //       const element = new PIXI.Graphics();
+    //       const container = new PIXI.Container();
     
-          buildingH2[i] = {
-            value: Math.floor(Math.random() * 180) + 200,
-          };
-          buildingW2[i] = {
-            value: Math.floor(Math.random() * 200) + 100,
-          };
+    //       buildingH2[i] = {
+    //         value: Math.floor(Math.random() * 180) + 200,
+    //       };
+    //       buildingW2[i] = {
+    //         value: Math.floor(Math.random() * 200) + 100,
+    //       };
     
-          let AllBW = 0;
+    //       let AllBW = 0;
     
-          for (let j = 0; j < buildingW2.length; j++){
-            AllBW += buildingW2[j];
-          }
+    //       for (let j = 0; j < buildingW2.length; j++){
+    //         AllBW += buildingW2[j];
+    //       }
     
-          element.x = AllBW + 20;
-          element.y = 1000;
-          element.beginFill(buildingC2[Math.floor(Math.random() * 3)]);
-          element.drawRect(0, 0, buildingW2[i], buildingH1[i]);
-          element.setTransform(window.innerWidth, window.innerHeight, 1, 1, Math.PI, 0, 0, 0, 0);
+    //       element.x = AllBW + 20;
+    //       element.y = 1000;
+    //       element.beginFill(buildingC2[Math.floor(Math.random() * 3)]);
+    //       element.drawRect(0, 0, buildingW2[i], buildingH1[i]);
+    //       element.setTransform(window.innerWidth, window.innerHeight, 1, 1, Math.PI, 0, 0, 0, 0);
 
-          container.addChild(element);
-          container.pivot.x = container.width / 2;
-          container.pivot.y = container.height / 2;
-          Buildings_2.addChild(container);
-          app.stage.addChild(container);
-        }
+    //       container.addChild(element);
+    //       container.pivot.x = container.width / 2;
+    //       container.pivot.y = container.height / 2;
+    //       Buildings_2.addChild(container);
+    //       app.stage.addChild(container);
+    //     }
 
-        // building3
-        for (let i = 0; i < 10; i++) {
-          const element = new PIXI.Graphics();
-          const container = new PIXI.Container();
+    //     // building3
+    //     for (let i = 0; i < 10; i++) {
+    //       const element = new PIXI.Graphics();
+    //       const container = new PIXI.Container();
 
-          buildingH3[i] = {
-            value: Math.floor(Math.random() * 180) + 200,
-          };
-          buildingW3[i] = {
-            value: Math.floor(Math.random() * 200) + 100,
-          };
+    //       buildingH3[i] = {
+    //         value: Math.floor(Math.random() * 180) + 200,
+    //       };
+    //       buildingW3[i] = {
+    //         value: Math.floor(Math.random() * 200) + 100,
+    //       };
 
-          let AllBW = 0;
+    //       let AllBW = 0;
 
-          for (let j = 0; j < buildingW3.length; j++){
-            AllBW += buildingW3[j];
-          }
+    //       for (let j = 0; j < buildingW3.length; j++){
+    //         AllBW += buildingW3[j];
+    //       }
 
-          element.x = AllBW + 20;
-          element.y = 1500;
-          element.beginFill(buildingC3[Math.floor(Math.random() * 3)]);
-          element.drawRect(0, 0, buildingW3[i], buildingH3[i]);
-          element.setTransform(window.innerWidth, window.innerHeight, 1, 1, Math.PI, 0, 0, 0, 0);
+    //       element.x = AllBW + 20;
+    //       element.y = 1500;
+    //       element.beginFill(buildingC3[Math.floor(Math.random() * 3)]);
+    //       element.drawRect(0, 0, buildingW3[i], buildingH3[i]);
+    //       element.setTransform(window.innerWidth, window.innerHeight, 1, 1, Math.PI, 0, 0, 0, 0);
 
-          container.addChild(element);
-          container.pivot.x = container.width / 2;
-          container.pivot.y = container.height / 2;
-          Buildings_3.addChild(container);
-          app.stage.addChild(container);
-        }
+    //       container.addChild(element);
+    //       container.pivot.x = container.width / 2;
+    //       container.pivot.y = container.height / 2;
+    //       Buildings_3.addChild(container);
+    //       app.stage.addChild(container);
+    //     }
 
-        // building4
-        for (let i = 0; i < 10; i++) {
-          const element = new PIXI.Graphics();
-          const container = new PIXI.Container();
+    //     // building4
+    //     for (let i = 0; i < 10; i++) {
+    //       const element = new PIXI.Graphics();
+    //       const container = new PIXI.Container();
 
-          buildingH4[i] = {
-            value: Math.floor(Math.random() * 180) + 200,
-          };
-          buildingW4[i] = {
-            value: Math.floor(Math.random() * 200) + 100,
-          };
+    //       buildingH4[i] = {
+    //         value: Math.floor(Math.random() * 180) + 200,
+    //       };
+    //       buildingW4[i] = {
+    //         value: Math.floor(Math.random() * 200) + 100,
+    //       };
 
-          let AllBW = 0;
+    //       let AllBW = 0;
 
-          for (let j = 0; j < buildingW4.length; j++){
-            AllBW += buildingW4[j];
-          }
+    //       for (let j = 0; j < buildingW4.length; j++){
+    //         AllBW += buildingW4[j];
+    //       }
 
-          element.x = AllBW + 20;
-          element.y = 2000;
-          element.beginFill(buildingC4[Math.floor(Math.random() * 3)]);
-          element.drawRect(0, 0, buildingW3[i], buildingH4[i]);
-          element.setTransform(window.innerWidth, window.innerHeight, 1, 1, Math.PI, 0, 0, 0, 0);
+    //       element.x = AllBW + 20;
+    //       element.y = 2000;
+    //       element.beginFill(buildingC4[Math.floor(Math.random() * 3)]);
+    //       element.drawRect(0, 0, buildingW3[i], buildingH4[i]);
+    //       element.setTransform(window.innerWidth, window.innerHeight, 1, 1, Math.PI, 0, 0, 0, 0);
 
-          container.addChild(element);
-          container.pivot.x = container.width / 2;
-          container.pivot.y = container.height / 2;
-          Buildings_4.addChild(container);
-          app.stage.addChild(container);
-        }
+    //       container.addChild(element);
+    //       container.pivot.x = container.width / 2;
+    //       container.pivot.y = container.height / 2;
+    //       Buildings_4.addChild(container);
+    //       app.stage.addChild(container);
+    //     }
 
         // test
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 20; i++) {
           const element = new PIXI.Graphics();
           element.x = 20 + i * (triWidth + gapWidth);
           element.y = 20;
           lines.push(element);
-          triHeights[i] = {
+          buildingH1[i] = {
             value: 0,
           };
           triX[i] = {
@@ -275,19 +275,19 @@ function onLoaded() {
           app.stage.addChild(element);
         }
       
-        for (let i = 0; i < 40; i++) {
-          const element = new PIXI.Graphics();
-          element.x = 20 + i * (triWidth + gapWidth);
-          element.y = 20;
-          lines2.push(element);
-          triHeights2[i] = {
-            value: 0,
-          };
-          triX[i] = {
-            value: 0,
-          };
-          app.stage.addChild(element);
-        }
+        // for (let i = 0; i < 40; i++) {
+        //   const element = new PIXI.Graphics();
+        //   element.x = 20 + i * (triWidth + gapWidth);
+        //   element.y = 20;
+        //   lines2.push(element);
+        //   triHeights2[i] = {
+        //     value: 0,
+        //   };
+        //   triX[i] = {
+        //     value: 0,
+        //   };
+        //   app.stage.addChild(element);
+        // }
       
       
     // push path pointsto the declared path
@@ -449,11 +449,6 @@ function onLoaded() {
 
     // start animating
     app.start();
-
-
- 
-  
-  
  
 }
 
@@ -491,6 +486,7 @@ function onLoaded() {
 // }
 
 let elaspsedTime = 0;
+let c = buildingC1[Math.floor(Math.random() * 6)];
 
 function update(this: any, delta: number) {
 
@@ -499,39 +495,39 @@ function update(this: any, delta: number) {
   this.lines.forEach((element: PIXI.Graphics, i: number) => {
     let triH = 0;
     element.clear();
-    element.beginFill(Wave1Color);
-    if (triHeights[i].value <= 200){
+    element.beginFill(c);
+    if (buildingH1[i].value <= 200){
       triH = 0;
     } else{
-      triH = triHeights[i].value - 200;
+      triH = buildingH1[i].value - 200;
     }
-    element.drawRect(0, 0, triWidth, triHeights[i].value);
+    element.drawRect(0, 0, triWidth, buildingH1[i].value);
     element.endFill();
-    element.beginFill(Wave2Color);
+    element.beginFill(c);
     element.drawRect(0, 0, triWidth, triH);
     element.endFill();
   });
 
 
-  this.lines2.forEach((element: PIXI.Graphics, i: number) => {
-    let triH2;
-    element.clear();
-    element.beginFill(Wave2Color);
-    element.drawRect(0, 0, triWidth, triHeights2[i].value);
-    if (triHeights2[i].value <= 200){
-      triH2 = 0;
-    } else{
-      triH2 = triHeights2[i].value - 200;
-    }
-    element.beginFill(Wave1Color);
-    element.drawRect(0, 0, triWidth, triH2);
-    element.endFill();
-    // element.drawRect(triX[i], 0, triWidth, triHeights[i].value);
-  });
+  // this.lines2.forEach((element: PIXI.Graphics, i: number) => {
+  //   let triH2;
+  //   element.clear();
+  //   element.beginFill(Wave2Color);
+  //   element.drawRect(0, 0, triWidth, triHeights2[i].value);
+  //   if (triHeights2[i].value <= 200){
+  //     triH2 = 0;
+  //   } else{
+  //     triH2 = triHeights2[i].value - 200;
+  //   }
+  //   element.beginFill(Wave1Color);
+  //   element.drawRect(0, 0, triWidth, triH2);
+  //   element.endFill();
+  //   // element.drawRect(triX[i], 0, triWidth, triHeights[i].value);
+  // });
   // tl.to(triHeights, { value: (window.innerHeight - 40) * Math.sin(elaspsedTime), duration: 1 });
-  tl.to(triHeights, { stagger: Math.sin(0.1), value: window.innerHeight - 40, duration: 1, yoyo: true });
-  tl.to(triHeights, { stagger: Math.sin(0.1), value: 0, ease:"power2.out", duration: 1, yoyo: true }, "< 1");
-  tl.to(triHeights2, { stagger: Math.sin(0.1), value: window.innerHeight - 40, duration: 1, yoyo: true}, "< 1");
-  tl.to(triHeights2, { stagger: Math.sin(0.1), value: 0, ease:"power2.out", duration: 1, yoyo: true }, "< 1.1");
+  tl.to(buildingH1, { stagger: Math.sin(0.1), value: 490, ease:"elastic.out(1, 0.3)", duration: 1});
+  // tl.to(buildingH1, { stagger: Math.sin(0.1), value: 0, ease:"elastic.out(1, 0.3)", duration: 1}, "< 1");
+  // tl.to(triHeights2, { stagger: Math.sin(0.1), value: window.innerHeight - 40, duration: 1, yoyo: true}, "< 1");
+  // tl.to(triHeights2, { stagger: Math.sin(0.1), value: 0, ease:"power2.out", duration: 1, yoyo: true }, "< 1.1");
 
 }
