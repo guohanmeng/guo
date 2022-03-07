@@ -7,15 +7,51 @@ import { Model, SceneState } from './model';
 import { ContextSystem, LineStyle, UPDATE_PRIORITY } from "pixi.js";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin.js";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {$} from "jquery";
+
 let tl = gsap.timeline();
 let mModel = new Model();
 let CurvePoints: Array<PIXI.AnimatedSprite> =[];
 let Kids: Array<PIXI.AnimatedSprite> =[];
 let Path: Array<any> = [];
-let app = new PIXI.Application();
+let app = new PIXI.Application({
+  width: window.innerWidth,
+  height: 2000
+ });
+let renderer = new PIXI.Renderer({
+  width: window.innerWidth,
+  height: window.innerHeight * 3
+});
 let KidTextures_1: Array<any> = [];
 let KidTextures_2: Array<any> = [];
 let KidTextures_3: Array<any> = [];
+
+// Code By Webdevtrick ( https://webdevtrick.com )
+// var one = "#11cf72",
+//  two = "#1da1f2",
+//  three = "#ff3f3f",
+//  four = "#ff0099",
+//  five = "#ff7a00";
+ 
+// $(window).on("scroll touchmove", function() {
+//  if ($(document).scrollTop() >= $("#one").position().top) {
+//  $('body').css('background', $("#one").attr("data-color"));
+ 
+//  };
+//  if ($(document).scrollTop() > $("#two").position().top) {
+//  $('body').css('background', $("#two").attr("data-color"))
+//  };
+//  if ($(document).scrollTop() > $("#three").position().top) {
+ 
+//  $('body').css('background', $("#three").attr("data-color"))
+//  };
+//  if ($(document).scrollTop() > $("#four").position().top) {
+ 
+//  $('body').css('background', $("#four").attr("data-color"))
+//  };
+
+// });
+
 app.loader
     .add('kid1_1', 'assets/spr_kids/kid1_1.png')
     .add('kid1_2', 'assets/spr_kids/kid1_2.png')
@@ -63,7 +99,7 @@ function onLoaded() {
       KidTextures_3.push(texture);
     }
 
-    var path = [500, 200, 850, 1000, window.innerWidth + 100, 200]; 
+    var path = [300, 300, 550, 400, window.innerWidth + 20, 500, window.innerWidth + 20, 600, 0, 1000, 0, 1300, 500, 1500, window.innerWidth + 20, 1500]; 
   
     let path2 = [{
       x: 0,
@@ -74,19 +110,19 @@ function onLoaded() {
       path2.push({x: path[i], y: path[i+1]})
     }
 
-    let graphics = new PIXI.Graphics()
-    graphics.lineStyle(10, 0xffffff, 1);
-    graphics.bezierCurveTo(500, 200, 850, 1000, window.innerWidth + 100, 200);
-    app.stage.addChild(graphics);
-    graphics.endFill();
+    // let graphics = new PIXI.Graphics()
+    // graphics.lineStyle(10, 0xffffff, 1);
+    // graphics.bezierCurveTo(500, 200, 850, 1000, window.innerWidth + 100, 200);
+    // app.stage.addChild(graphics);
+    // graphics.endFill();
   
     gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 
       // create kid1 AnimatedSprite
       const kid1 = new PIXI.AnimatedSprite(KidTextures_1);
-      kid1.x = 0;
-      kid1.y = 0;
+      kid1.x = -20;
+      kid1.y = 60;
       kid1.animationSpeed = 0.3;
       kid1.anchor.set(0.5, 0.7);
       kid1.scale.set(0.1);
@@ -95,8 +131,8 @@ function onLoaded() {
       app.stage.addChild(kid1);
 
       const kid2 = new PIXI.AnimatedSprite(KidTextures_2);
-      kid2.x = 0;
-      kid2.y = 0;
+      kid2.x = -20;
+      kid2.y = 60;
       kid2.animationSpeed = 0.3;
       kid2.anchor.set(0.5, 0.7);
       kid2.scale.set(0.1);
@@ -105,8 +141,8 @@ function onLoaded() {
       app.stage.addChild(kid2);
 
       const kid3 = new PIXI.AnimatedSprite(KidTextures_3);
-      kid3.x = 0;
-      kid3.y = 0;
+      kid3.x = -20;
+      kid3.y = 60;
       kid3.animationSpeed = 0.3;
       kid3.anchor.set(0.5, 0.7);
       kid3.scale.set(0.1);
@@ -114,10 +150,10 @@ function onLoaded() {
       Kids.push(kid3);
       app.stage.addChild(kid3);
 
-      gsap.to(kid1, 12, {
-        duration: 12,
+      gsap.to(kid1, {
+        duration: 50,
         // delay: 1, 
-        repeat: 12,
+        repeat: 50,
         repeatDelay: 1,
         ease: "none",
         motionPath:{          
@@ -126,27 +162,27 @@ function onLoaded() {
           // alignOrigin: [0.5, 0.5],
           autoRotate: true,
           useRadians: true,
-          // curviness: 1
-          type: "cubic"}
-
+          curviness: 0.5
+          // type: "cubic"
+        }
         
       });
 
       gsap.to(kid2, {
-        scrollTrigger: {
+        // scrollTrigger: {
           // pin: true,
-          start: "top 0%",
-          end: '+=1000px',
-          scrub: 1,
+          // start: "top",
+          // end: 'bottom += 550%',
+          // scrub: 1,
           // snap: 1 / (window.innerWidth + 1000),
-          markers: true,
+          // markers: true,
           // onUpdate: self => {
           //   gsap.to(kid2, {rotation: () => self.direction === 1 ? 0 : -180, overwrite: 'auto'});
           // }
-        },
-        duration: 12,
+        // },
+        duration: 50,
         delay: 0.5, 
-        repeat: 12,
+        repeat: 50,
         repeatDelay: 1,
         ease: "none",
         immediateRender: true,
@@ -154,24 +190,24 @@ function onLoaded() {
           path: path2,
           autoRotate: true,
           useRadians: true,
-          // curviness: 1
-          type: "cubic",
+          curviness: 0.5
+          // type: "cubic",
           
         }
       });
 
       gsap.to(kid3, {
-        duration: 12,
+        duration: 50,
         delay: 1, 
-        repeat: 12,
+        repeat: 50,
         repeatDelay: 1,
         ease: "none",
         motionPath:{
           path: path2,
           autoRotate: true,
           useRadians: true,
-          type: "cubic",
-          // curviness: 1
+          // type: "cubic",
+          curviness: 0.5
         }
       });
 
@@ -215,17 +251,19 @@ function onLoaded() {
     document.body.style.margin = '0';
     app.renderer.view.style.position = 'absolute';
     app.renderer.view.style.display = 'block';
-    app.renderer.resize(window.innerWidth + 1000, window.innerHeight);
+    app.renderer.resize(window.innerWidth, 2000);
     app.renderer.backgroundColor = 0x00000;
+    // app.renderer.backgroundAlpha = 0;
   
 
   
     // Handle window resizing
     window.addEventListener('resize', (_e) => {
-        app.renderer.resize(window.innerWidth, window.innerHeight);
+        app.renderer.resize(window.innerWidth, 2000);
     });
   
     document.body.appendChild(app.view);
+    // renderer.render(app.stage);
   
  
 }
