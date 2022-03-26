@@ -8,7 +8,7 @@ Orbit the scene with mouse to observe the sea life from different angles.
 
 ## Demo Pic
 
-<img src=".resources/textures/sealife1.jpg">
+<!-- <img src=".resources/textures/sealife1.jpg"> -->
 
 
 <!-- ## Alternate Demos
