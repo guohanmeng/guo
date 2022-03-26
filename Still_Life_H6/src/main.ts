@@ -217,17 +217,6 @@ function initScene() {
 	// 	scene.add(model);
 	// });
 
-	// const uniforms = {
-	// 	u_time: { type: 'f', value: 1.0 },
-	// 	u_resolution: { type: 'v2', value: new THREE.Vector2(800, 800) },
-	// 	u_mouse: { type: 'v2', value: new THREE.Vector2() },
-	// };
-
-	// shaderMat = new THREE.ShaderMaterial({
-	// 	uniforms: uniforms,
-	// 	vertexShader: vertexShader,
-	// 	fragmentShader: fragmentShader,
-	// });
 
 	// Init animation
 	animate();
@@ -271,15 +260,6 @@ function animate() {
 	requestAnimationFrame(() => {
 		animate();
 	});
-
-	// let delta = clock.getDelta();
-
-	// shaderMat.uniforms.u_time.value += delta;
-
-	// if (exampleModel != undefined) {
-	// 	exampleModel.rotateX(0.01);
-	// 	exampleModel.rotateY(0.01);
-	// }
 
 	if (stats) stats.update();
 
