@@ -129,12 +129,12 @@ function initScene() {
 	const loader = new THREE.CubeTextureLoader(loadManager);
 
 	const textureface: any = [
-        new THREE.MeshBasicMaterial({ map: loader.load('resources/textures/head.jpg') }), //right side
-        new THREE.MeshBasicMaterial({ map: loader.load('resources/textures/head.jpg')}), //left side
-        new THREE.MeshBasicMaterial({ map: loader.load('resources/textures/head.jpg')}), //top side
-        new THREE.MeshBasicMaterial({ map: loader.load('resources/textures/head.jpg')}), //bottom side
-        new THREE.MeshBasicMaterial({ map: loader.load('resources/textures/face.jpg')}), //front side
-        new THREE.MeshBasicMaterial({ map: loader.load('resources/textures/head.jpg')}), //back side
+        new THREE.MeshBasicMaterial({ map: loader.load('./resources/textures/head.jpg') }), //right side
+        new THREE.MeshBasicMaterial({ map: loader.load('./resources/textures/head.jpg')}), //left side
+        new THREE.MeshBasicMaterial({ map: loader.load('./resources/textures/head.jpg')}), //top side
+        new THREE.MeshBasicMaterial({ map: loader.load('./resources/textures/head.jpg')}), //bottom side
+        new THREE.MeshBasicMaterial({ map: loader.load('./resources/textures/face.jpg')}), //front side
+        new THREE.MeshBasicMaterial({ map: loader.load('./resources/textures/head.jpg')}), //back side
     ];
 	// textureface.repeat.set(0.05, 0.05);
 	// faceMaterial = new THREE.MeshLambertMaterial( { color: 0xffffff, textureface });
