@@ -28,10 +28,12 @@ let rollOverMaterial: THREE.MeshBasicMaterial;
 //hair
 let cubeGeo: THREE.BoxGeometry;
 let cubeMaterial: THREE.MeshBasicMaterial;
+let colorList: any = [0x733C3C, 0xE45826, 0xF0A500, 0x357C3C, 0x3A3845, 0x6867AC];
 
 //face
 let face: THREE.Mesh;
 let faceMaterial: THREE.MeshBasicMaterial;
+
 
 let model2= {
 	groupX: 0,
@@ -121,7 +123,7 @@ function initScene() {
 
 	// cubes
 	cubeGeo = new THREE.BoxGeometry( 50, 50, 50 );
-	cubeMaterial = new THREE.MeshLambertMaterial( { color: 0xfeb74c });
+	cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x733C3C });
 
 	// face
 	
@@ -295,6 +297,26 @@ function initListeners() {
 		}
 	
 	} );
+
+	function setupKeyControls() {
+		// var face = scene.getObjectByName('face');
+		document.onkeydown = function(e) {
+		  switch (e.keyCode) {
+			case 37:
+			face.rotation.x += 0.1;
+			break;
+			case 38:
+			face.rotation.z -= 0.1;
+			break;
+			case 39:
+			face.rotation.x -= 0.1;
+			break;
+			case 40:
+			face.rotation.z += 0.1;
+			break;
+		  }
+		};
+	  }
 
 	// // window event listener
 	// window.addEventListener('keydown', (event) => {
