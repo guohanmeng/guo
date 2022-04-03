@@ -29,6 +29,8 @@ let rollOverMaterial: THREE.MeshBasicMaterial;
 let cubeGeo: THREE.BoxGeometry;
 let cubeMaterial: THREE.MeshBasicMaterial;
 let colorList: any = [0x733C3C, 0xE45826, 0xF0A500, 0x357C3C, 0x3A3845, 0x6867AC];
+let currentIndex: number = 0;
+let currentColor: any = colorList[currentIndex];
 
 //face
 let face: THREE.Mesh;
@@ -123,7 +125,7 @@ function initScene() {
 
 	// cubes
 	cubeGeo = new THREE.BoxGeometry( 50, 50, 50 );
-	cubeMaterial = new THREE.MeshLambertMaterial( { color: 0x733C3C });
+	cubeMaterial = new THREE.MeshLambertMaterial( { color: currentColor });
 
 	// face
 	
@@ -250,7 +252,7 @@ function initListeners() {
 			// delete cube
 			if ( isShiftDown ) {
 	
-				if ( intersect.object !== plane ) {
+				if ( intersect.object !== face ) {
 	
 					scene.remove( intersect.object );
 	
@@ -281,7 +283,13 @@ function initListeners() {
 
 		switch ( event.keyCode ) {
 	
-			case 16: isShiftDown = true; break;
+			case 16: isShiftDown = true; 
+			break;
+
+			// case 32: 
+			// currentIndex += 1;
+			// currentColor = colorList[currentIndex];
+			// break
 	
 		}
 	
@@ -297,6 +305,8 @@ function initListeners() {
 		}
 	
 	} );
+
+
 
 	function setupKeyControls() {
 		// var face = scene.getObjectByName('face');
@@ -353,6 +363,7 @@ function onWindowResize() {
 
 function animate() {
 	requestAnimationFrame(() => {
+		// setupKeyControls();
 		animate();
 	});
 
