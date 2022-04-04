@@ -83,7 +83,7 @@ Not working, either.
 In the future, I will try to find out how to implement the fly control properly.
 
 ## Demo Pic
-
+![image](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Interaction_H7/demopic.jpg)
 
 <!-- <img src=".resources/textures/sealife1.jpg"> -->
 
