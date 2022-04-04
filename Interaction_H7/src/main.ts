@@ -126,25 +126,26 @@ function initScene() {
 
 	
 	const loadManager = new THREE.LoadingManager();
-	const loader = new THREE.CubeTextureLoader(loadManager);
 
-	const textureface: any = [
-        new THREE.MeshBasicMaterial({ map: loader.load('./resources/textures/head.jpg') }), //right side
-        new THREE.MeshBasicMaterial({ map: loader.load('./resources/textures/head.jpg')}), //left side
-        new THREE.MeshBasicMaterial({ map: loader.load('./resources/textures/head.jpg')}), //top side
-        new THREE.MeshBasicMaterial({ map: loader.load('./resources/textures/head.jpg')}), //bottom side
-        new THREE.MeshBasicMaterial({ map: loader.load('./resources/textures/face.jpg')}), //front side
-        new THREE.MeshBasicMaterial({ map: loader.load('./resources/textures/head.jpg')}), //back side
-    ];
-	// textureface.repeat.set(0.05, 0.05);
-	// faceMaterial = new THREE.MeshLambertMaterial( { color: 0xffffff, textureface });
+	faceMaterial = new THREE.MeshLambertMaterial( { color: 0xFAE5D3  });
 
-	loadManager.onLoad = () => {
-		face = new THREE.Mesh(new THREE.BoxGeometry(600, 600, 600), textureface);
-		scene.add(face);
-		objects.push(face);
+	face = new THREE.Mesh(new THREE.BoxGeometry(600, 600, 600), faceMaterial);
+	scene.add(face);
+	objects.push(face);
 
-	}
+	var loader = new THREE.TextureLoader();
+
+	loader.load("./resources/textures/face.jpg",
+				(texture) => {
+					const geometry = new THREE.PlaneGeometry( 600, 600 );
+
+					// geometry.rotateX( - Math.PI / 2 );
+				
+					plane = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: 0xffffff, map: texture } ) );
+					plane.position.z = 300;
+					scene.add( plane );
+				} );
+
 
 	// light
 	lightPoint = new THREE.PointLight(0xffffff);
