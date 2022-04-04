@@ -7,6 +7,9 @@
 ## Video demo
 <https://drive.google.com/file/d/1XptXKOJx9-NXmj5gzKNGr9m9Q9Te15yy/view?usp=sharing>
 
+## Live Demo
+<https://carrotliu.github.io/IDM-CCL-WebGL/Interaction_H7/dist/>
+
 ## Inspiration
 This assignment is inspired by [webgl_interactive_voxelpainter](https://threejs.org/examples/?q=interac#webgl_interactive_voxelpainter), a three js example code. I want to make a bald head that user can pain hairs/mustache onto. 
 
