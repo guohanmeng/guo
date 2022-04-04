@@ -33,7 +33,7 @@ loadManager.onLoad = () => {
 }
 ```
 However, the cube is always black and there's no error message in the console:
-
+![process](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Interaction_H7/process.png)
 
 There's a typescript error saying ”Argument of type 'string' is not assignable to parameter of type 'string[]'.” I changed the path string several times, but none of the trial affected the rendering result. Also, when I deliberately assign a wrong path to the texture file, there wasn’t any error message in the console window. (it does have error messages saying fail to load resources on the github page but never have errors on my local server. both don’t render out the texture)
 
@@ -83,7 +83,7 @@ Not working, either.
 In the future, I will try to find out how to implement the fly control properly.
 
 ## Demo Pic
-![image](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Interaction_H7/demopic.jpg)
+![demopic](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Interaction_H7/demopic.jpg)
 
 <!-- <img src=".resources/textures/sealife1.jpg"> -->
 
