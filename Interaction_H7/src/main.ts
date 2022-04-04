@@ -115,10 +115,6 @@ function initScene() {
 	rollOverMesh = new THREE.Mesh( rollOverGeo, rollOverMaterial );
 	scene.add( rollOverMesh );
 
-	// grid
-
-	// const gridHelper = new THREE.GridHelper( 3000, 100 );
-	// scene.add( gridHelper );
 
 	// cubes
 	cubeGeo = new THREE.BoxGeometry( 50, 50, 50 );
@@ -294,30 +290,6 @@ function initListeners() {
 		};
 	  }
 
-	// // window event listener
-	// window.addEventListener('keydown', (event) => {
-	// 	const { key } = event;
-
-	// 	switch (key) {
-	// 		case 'e':
-	// 			const win = window.open('', 'Canvas Image');
-
-	// 			const { domElement } = renderer;
-
-	// 			// Makse sure scene is rendered.
-	// 			renderer.render(scene, camera);
-
-	// 			const src = domElement.toDataURL();
-
-	// 			if (!win) return;
-
-	// 			win.document.write(`<img src='${src}' width='${domElement.width}' height='${domElement.height}'>`);
-	// 			break;
-
-	// 		default:
-	// 			break;
-	// 	}
-	// });
 }
 
 function onWindowResize() {
