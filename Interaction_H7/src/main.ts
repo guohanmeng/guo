@@ -4,7 +4,8 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { ShaderMaterial } from 'three';
-import { GUI } from "dat.gui";
+// import { GUI } from "dat.gui";
+import * as dat from "dat.gui";
 import { Raycaster, Shading, Vector2 } from 'three';
 import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflare.js';
@@ -28,20 +29,15 @@ let rollOverMaterial: THREE.MeshBasicMaterial;
 //hair
 let cubeGeo: THREE.BoxGeometry;
 let cubeMaterial: THREE.MeshBasicMaterial;
+let voxel: any;
 let colorList: any = [0x733C3C, 0xE45826, 0xF0A500, 0x357C3C, 0x3A3845, 0x6867AC];
 let currentIndex: number = 0;
 let currentColor: any = colorList[currentIndex];
+let ifShiftColor: Boolean = false;
 
 //face
 let face: THREE.Mesh;
 let faceMaterial: THREE.MeshBasicMaterial;
-
-
-let model2= {
-	groupX: 0,
-	groupY: 0,
-	groupAngle: 0
-};
 
 let gltf: any;
 let model: any;
@@ -59,7 +55,7 @@ let stats: any;
 function main() {
 	initScene();
 	initStats();
-	// initGUI();
+	initGUI();
 	
 	initListeners();
 }
@@ -69,17 +65,21 @@ function initStats() {
 	document.body.appendChild(stats.dom);
 }
 
-// function initGUI(){
-// 	const gui = new GUI();
-// 	const cubeFolder = gui.addFolder('Cube')
-// 	cubeFolder.add(cube.rotation, 'x', 0, Math.PI * 2)
-// 	cubeFolder.add(cube.rotation, 'y', 0, Math.PI * 2)
-// 	cubeFolder.add(cube.rotation, 'z', 0, Math.PI * 2)
-// 	cubeFolder.open()
-// 	const cameraFolder = gui.addFolder('Camera')
-// 	cameraFolder.add(camera.position, 'z', 0, 10)
-// 	cameraFolder.open()
-// }
+function initGUI() {
+	var params = {
+		color: 0x733C3C
+	};
+	
+	var gui = new dat.GUI();
+	
+	var folder = gui.addFolder( 'MATERIAL' );
+	
+	folder.addColor( params, 'color' )
+		  .onChange( function() { voxel.material.color.set( params.color ); } );
+	
+	folder.open();
+}
+
 
 function initScene() {
 	scene = new THREE.Scene();
@@ -97,8 +97,6 @@ function initScene() {
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(renderer.domElement);
-
-
 	// control
 	// controls = new OrbitControls(camera, renderer.domElement );
 	// controls = new FirstPersonControls( camera, renderer.domElement );
@@ -110,7 +108,6 @@ function initScene() {
 	const shadowIntensity = 0.25;
 	pointer = new THREE.Vector2();
 	raycaster = new THREE.Raycaster();
-
 
 	// roll-over helpers
 	const rollOverGeo = new THREE.BoxGeometry( 50, 50, 50 );
@@ -127,7 +124,6 @@ function initScene() {
 	cubeGeo = new THREE.BoxGeometry( 50, 50, 50 );
 	cubeMaterial = new THREE.MeshLambertMaterial( { color: currentColor });
 
-	// face
 	
 	const loadManager = new THREE.LoadingManager();
 	const loader = new THREE.CubeTextureLoader(loadManager);
@@ -149,7 +145,6 @@ function initScene() {
 		objects.push(face);
 
 	}
-	
 
 	// light
 	lightPoint = new THREE.PointLight(0xffffff);
@@ -166,19 +161,6 @@ function initScene() {
     dirLight.position.set(0, 20, 10);
     scene.add(dirLight);
 
-	// const geometry = new THREE.PlaneGeometry( 3000, 3000 );
-	// geometry.rotateX( - Math.PI / 2 );
-	// // ground
-  	// const plane = new THREE.Mesh(
-    // geometry,
-    // new THREE.MeshPhongMaterial({ color: 0x072F5F, depthWrite: false })
-  	// );
-  	// scene.add(plane);
-	// objects.push( plane );
-
-
-
-
 	const mapSize = 1024; // Default 512
 	const cameraNear = 0.5; // Default 0.5
 	const cameraFar = 500; // Default 500
@@ -187,28 +169,11 @@ function initScene() {
 	lightPoint.shadow.camera.near = cameraNear;
 	lightPoint.shadow.camera.far = cameraFar;
 
-    
-    // const loader6 = new GLTFLoader();
-	// loader6.load('./resources/models/fish.glb', (gltfData: any) => {
-	// 	gltf = gltfData;
-	// 	console.log(gltf);
-	// 	gltf.castShadow = true;
-    //     model = gltf.scene.children[0];
-    //     // model1 = gltf.scene.children[0];
-    //     // model2 = gltf.scene.children[0];
-    //     console.log(model);
-
-    //     model.position.set(-3, 1, 5);
-    //     model.scale.set(0.01, 0.01, 0.01);
-	// 	scene.add(model);
-
-	// });
-
-
-
 	// Init animation
 	animate();
 }
+
+
 
 
 function initListeners() {
@@ -263,7 +228,7 @@ function initListeners() {
 				// create cube
 			} else {
 	
-				const voxel = new THREE.Mesh( cubeGeo, cubeMaterial );
+				voxel = new THREE.Mesh( cubeGeo, cubeMaterial );
 				voxel.position.copy( intersect.point ).add( intersect.face.normal );
 				voxel.position.divideScalar( 50 ).floor().multiplyScalar( 50 ).addScalar( 25 );
 				scene.add( voxel );
@@ -283,13 +248,13 @@ function initListeners() {
 
 		switch ( event.keyCode ) {
 	
-			case 16: isShiftDown = true; 
+			case 16: 
+			isShiftDown = true; 
 			break;
 
-			// case 32: 
-			// currentIndex += 1;
-			// currentColor = colorList[currentIndex];
-			// break
+			case 32: 
+			ifShiftColor = true;
+			break
 	
 		}
 	
