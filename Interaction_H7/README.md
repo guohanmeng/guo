@@ -5,7 +5,7 @@
 <!-- View demo hosted on CloudFlare pages: [vite-threejs-ts-starter.pages.dev](https://vite-threejs-ts-starter.pages.dev/) -->
 
 ## Video demo
-<https://drive.google.com/file/d/1XptXKOJx9-NXmj5gzKNGr9m9Q9Te15yy/view?usp=sharing>
+<https://drive.google.com/file/d/1Vt89xKJqknqTIQluG_F9B0RNuSBXaVgr/view?usp=sharing>
 
 ## Live Demo
 <https://carrotliu.github.io/IDM-CCL-WebGL/Interaction_H7/dist/>
