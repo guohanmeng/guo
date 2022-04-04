@@ -138,7 +138,7 @@ function initScene() {
 					// geometry.rotateX( - Math.PI / 2 );
 				
 					plane = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: 0xffffff, map: texture } ) );
-					plane.position.z = 300;
+					plane.position.z = 300.5;
 					scene.add( plane );
 				} );
 
