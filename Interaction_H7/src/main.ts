@@ -98,7 +98,7 @@ function initScene() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(renderer.domElement);
 	// control
-	// controls = new OrbitControls(camera, renderer.domElement );
+	controls = new OrbitControls(camera, renderer.domElement );
 	// controls = new FirstPersonControls( camera, renderer.domElement );
 
 	// controls.rollSpeed = Math.PI / 6;
