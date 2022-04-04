@@ -10,6 +10,9 @@
 ## Live Demo
 <https://carrotliu.github.io/IDM-CCL-WebGL/Interaction_H7/dist/>
 
+## Demo Pic
+![demopic](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Interaction_H7/demopic.jpg)
+
 ## Inspiration
 This assignment is inspired by [webgl_interactive_voxelpainter](https://threejs.org/examples/?q=interac#webgl_interactive_voxelpainter), a three js example code. I want to make a bald head that user can pain hairs/mustache onto. 
 
@@ -85,8 +88,7 @@ Not working, either.
 
 In the future, I will try to find out how to implement the fly control properly.
 
-## Demo Pic
-![demopic](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Interaction_H7/demopic.jpg)
+
 
 <!-- <img src=".resources/textures/sealife1.jpg"> -->
 
