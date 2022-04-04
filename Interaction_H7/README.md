@@ -1,4 +1,4 @@
-# Interaction: Customizing your head
+# Interaction: Customizing a head
 
 <!-- A basic [THREE.js](https://threejs.org/) project in [TypeScript](https://www.typescriptlang.org/) with [Vite](https://vitejs.dev/). Includes OrbitControls, Stats and basic shadows. -->
 
