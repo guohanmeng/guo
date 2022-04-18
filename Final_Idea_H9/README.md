@@ -1,13 +1,17 @@
 # Final Project Proposal
 ## Idea
-For the final project, 
-I want to explore interactions with animated avatar through mouse and camera interaction. 
+For the final project, I want to explore interactive 3D avatars using threejs, ml5, and firebase. 
+The 3D avatar will follow the body movements of users. Users can change and customize the avatar through clicking. Users can click on the floor and the avatar will walk to the clicked spot. When multiple users are online, multiple avatars appear in the scene.
 ## Inspiration
 <https://moments.epic.net/#home>
+<https://tympanus.net/codrops/2021/10/04/creating-3d-characters-in-three-js/>
+
 ## anticipated challenges
-1. making the model animation may takes a long time
-2. Linking 
+1. Customizable model making (now thinking of using a couple of avatars with different clothes and hairstyle)
+2. Map the ml5/posenet data to the 3D avatar's rig
+3. Store users' model data in firebase
+4. click to walk
 ## Schedule
 
-By April 25: 
+By April 25: model prepa
 By May 2: 
