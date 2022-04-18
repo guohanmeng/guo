@@ -15,5 +15,5 @@ The 3D avatar will follow the body movements of users. Users can change and cust
 4. click to walk
 
 ## Schedule
-By April 25: prepare model and animation, firebase and ml5 connection
-By May 2: Threejs scene construction and interaction making
+1. By April 25: prepare model and animation, firebase and ml5 connection
+2. By May 2: Threejs scene construction and interaction making
