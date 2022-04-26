@@ -1,1 +1,1 @@
-# IDM-CCL-WebGL
+# WebGL
