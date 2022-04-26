@@ -115,11 +115,6 @@ export class ViewTwo extends BaseView {
 
 		})
 
-		// const sphereGeometry = new SphereGeometry(0.5);
-		// const sphereMaterial = new MeshPhongMaterial({color: 0x32cd43})
-		// this.sphere = new Mesh(sphereGeometry, sphereMaterial)
-
-		// this.scene.add(this.sphere)
 
 		this.lightPoint = new PointLight(0xcccccc);
 		this.lightPoint.intensity = 0.66;

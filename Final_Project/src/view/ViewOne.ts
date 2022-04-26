@@ -27,7 +27,7 @@ export class ViewOne extends BaseView{
 	cube: Mesh;
 	plane: Mesh;
 	tl: any;
-	exampleModel: Group;
+	ghost: Group;
 	
 	exampleTexture: Texture;
 	
@@ -39,14 +39,14 @@ export class ViewOne extends BaseView{
 
 		this.tl = gsap.timeline();
 
-		this.exampleModel = new Group();
+		this.ghost = new Group();
 		this.exampleTexture = new Texture();
 		this.group = new Group();
 		this.scene.add(this.group);
 
 		const cubeGeometry = new BoxGeometry();
 		const cubeMaterial = new MeshPhongMaterial({ color: 0xf0bbbb });
-		// cubeMaterial.wireframe = true;
+		
 		this.cube = new Mesh(cubeGeometry, cubeMaterial);
 		this.cube.castShadow = true;
 
@@ -93,27 +93,19 @@ export class ViewOne extends BaseView{
 			// this.cube.material = textureMaterial;
 
 			const modelLoader = new GLTFLoader().setPath('../resources/models/');
-			modelLoader.load('teapot.gltf', (gltf) => {
+			// modelLoader.load('teapot.gltf', (gltf) => {
 				
-				this.exampleModel = gltf.scene;
-				console.log(this.exampleModel);
+			// 	this.ghost = gltf.scene;
+			// 	console.log(this.ghost);
 
-				this.exampleModel.scale.set(0.01, 0.01, 0.01);
-				this.exampleModel.position.x = 2;
+			// 	this.ghost.scale.set(0.01, 0.01, 0.01);
+			// 	this.ghost.position.x = 2;
 
-				const teapotMat = new MeshPhongMaterial({ color: 0x22ff22 });
+			// 	const teapotMat = new MeshPhongMaterial({ color: 0x22ff22 });
 
-				this.exampleModel.traverse((child: THREE.Object3D<THREE.Event>) => {
-					console.log(child);
-					console.log(child.type === 'Mesh');
-					if (child.type === 'Mesh') {
-						(child as gltfMesh).material = textureMaterial;
-					}
-				});
-
-				// scene.add(exampleModel)
-				// this.group.add(this.exampleModel);
-			});
+			// 	// scene.add(ghost)
+			// 	// this.group.add(this.ghost);
+			// });
 		});
 	}
 
@@ -126,16 +118,10 @@ export class ViewOne extends BaseView{
 		this.group.rotation.set(0, 0, this.model.groupAngle);
 		this.group.position.set(this.model.groupX, this.model.groupY, 0);
 
-		// const vertArray = this.plane.geometry.attributes.position;
-		// for (let i = 0; i < vertArray.count; i++) {
-		// 	vertArray.setZ(i, Math.sin(clock.getElapsedTime() + i - vertArray.count / 2) * 0.5 + Math.cos(clock.getElapsedTime() - i) * 0.5);
-		// }
-		// this.plane.geometry.attributes.position.needsUpdate = true;
 
-
-		if (this.exampleModel != undefined) {
-			this.exampleModel.rotateX(0.01);
-			this.exampleModel.rotateY(0.01);
+		if (this.ghost != undefined) {
+			this.ghost.rotateX(0.01);
+			this.ghost.rotateY(0.01);
 		}
 
 		if (this.exampleTexture) {

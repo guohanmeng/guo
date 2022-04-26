@@ -91,9 +91,6 @@ function initStats() {
 
 function initGUI() {
 	const gui = new DAT.GUI();
-	gui.add(model, 'groupX', -4, 4, 0.1)
-	gui.add(model, 'groupY', -3, 3, 0.1)
-	gui.add(model, 'groupAngle', 0, Math.PI*2.0, 0.1)
 
 	let tlSettings = {
 		position: 0,
@@ -130,8 +127,8 @@ function initScene() {
 	viewOne = new ViewOne(model, renderer);
 	views.push(viewOne);
 
-	viewTwo = new ViewTwo(model, renderer);
-	views.push(viewTwo);
+	// viewTwo = new ViewTwo(model, renderer);
+	// views.push(viewTwo);
 
 
 	// controls = new OrbitControls(camera, renderer.domElement);
