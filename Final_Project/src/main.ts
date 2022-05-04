@@ -6,9 +6,6 @@ import { Raycaster, ShaderMaterial, Shading, Vector2, Scene, PerspectiveCamera }
 import Stats from 'three/examples/jsm/libs/stats.module';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-
-// import vertexShader from '../resources/shaders/shader.vert?raw';
-// import fragmentShader from '../resources/shaders/shader.frag?raw';
 import { ViewOne } from './view/ViewOne';
 import { BaseView } from './view/BaseView';
 
@@ -31,12 +28,12 @@ let clock = new THREE.Clock();
 let stats: any;
 
 let raycaster: THREE.Raycaster;
-// let pointerPosition: THREE.Vector2;
+
 let poseNet: any;
 let poses: Array<any> = [];
 let videoTexture: any;
 let videoElement: any;
-// Grab elements, create settings, etc.
+
 var video: any = document.getElementById("video");
 var canvas = document.getElementById("canvas");
 var sketch = function (p: any) {
@@ -77,8 +74,8 @@ var sketch = function (p: any) {
 	}
 
   };
-let myp5 = new p5(sketch);
 
+let myp5 = new p5(sketch);
 
 let viewOne: ViewOne;
 
@@ -102,9 +99,6 @@ function createNewText(text_msg: any) {
 	viewOne.textMove();
 }
 
-
-
-
 function main() {
 	initScene();
 	initStats();
@@ -117,11 +111,8 @@ function initStats() {
 	document.body.appendChild(stats.dom);
 }
 
-
-
 function initScene() {
 	
-
 	renderer = new THREE.WebGLRenderer();
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -132,23 +123,12 @@ function initScene() {
 
 	viewOne = new ViewOne(model, renderer);
 	views.push(viewOne);
-
-	// viewTwo = new ViewTwo(model, renderer);
-	// views.push(viewTwo);
-
-
-	// controls = new OrbitControls(camera, renderer.domElement);
-
 	raycaster = new THREE.Raycaster();
-	// model.pointerPosition = new THREE.Vector2(0,0);
-
 	const uniforms = {
 		u_time: { type: 'f', value: 1.0 },
 		u_resolution: { type: 'v2', value: new THREE.Vector2(800, 800) },
 		// u_mouse: { type: 'v2', value: new THREE.Vector2() },
 	};
-
-
 
 	// // Init animation
 	animate();
@@ -169,7 +149,6 @@ function onPointerMove(event: any) {
 	model.pointerPosition.y = -(event.clientY / window.innerHeight) * 2 + 1;
 }
 
-
 function animate() {
 	requestAnimationFrame(() => {
 		animate();
@@ -187,20 +166,11 @@ function animate() {
 		default:
 			break;
 	}
-	
-
-
-
-
 
 	if (stats) stats.update();
 
-
-
 	renderer.render(views[model.activeView].scene, views[model.activeView].camera);
 }
-
-
 
 main();
 
