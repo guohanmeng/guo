@@ -12,6 +12,7 @@ For the final project, I want to simulate the communication between human and al
 ![arrival1](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Final_Project/arrival1.png) 
 
 There’re two main interactions: 1) 3D model alien’s hand position would move with the user’s hand when the hand is detected in front of the camera:
+
 ![arrival2](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Final_Project/arrival2.jpg)
 
 2) when user put the hand down, the position of the alien’s hand will be fixed. User then type texts and hit enter, a circular pattern would appear gradually from where the alien’s hand is (want to achieve a 3D ink effect, but currently only able to do a plane moving in a foggy environment):
@@ -54,7 +55,7 @@ loader.load("./resources/textures/face.jpg",
 				scene.add( plane );
 			} );
 ```
-In this way, I successfully display the texture.
+
 
 I also added a gui, which allows users to change the color of the painted voxel:
 
