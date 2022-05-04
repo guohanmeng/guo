@@ -23,8 +23,8 @@ let model: any;
 let exampleModel: THREE.Group;
 let exampleTexture: THREE.Texture;
 
-import vertexShader from '../resources/shaders/shader.vert?raw';
-import fragmentShader from '../resources/shaders/shader.frag?raw';
+// import vertexShader from '../resources/shaders/shader.vert?raw';
+// import fragmentShader from '../resources/shaders/shader.frag?raw';
 let shaderMat: ShaderMaterial;
 
 function main() {

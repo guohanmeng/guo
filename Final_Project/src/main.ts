@@ -1,22 +1,26 @@
 import './style.scss';
 import * as THREE from 'three';
+// import * as ML5 from 'ml5';
+// import * as p5 from 'p5';
 import { Raycaster, ShaderMaterial, Shading, Vector2, Scene, PerspectiveCamera } from 'three';
 import Stats from 'three/examples/jsm/libs/stats.module';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { DragControls } from 'three/examples/jsm/controls/DragControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import * as DAT from 'dat.gui';
+
 
 // import vertexShader from '../resources/shaders/shader.vert?raw';
 // import fragmentShader from '../resources/shaders/shader.frag?raw';
 import { ViewOne } from './view/ViewOne';
 import { BaseView } from './view/BaseView';
-import { ViewTwo } from './view/ViewTwo';
 
+
+declare let p5: any;
+declare let ml5: any;
+
+let handpose: any;
+let resullts: any;
+let predictions: Array<any> = [];
+let handPosition: any;
 let model = {
-	groupX: 0,
-	groupY: 0,
-	groupAngle: 0,
 	activeView: 0,
 	pointerPosition: new THREE.Vector2(0,0)
 }
@@ -24,14 +28,107 @@ let model = {
 let renderer: THREE.WebGLRenderer;
 let clock = new THREE.Clock();
 
-let controls: DragControls;
 let stats: any;
 
 let raycaster: THREE.Raycaster;
 // let pointerPosition: THREE.Vector2;
+let poseNet: any;
+let poses: Array<any> = [];
+let videoTexture: any;
+let videoElement: any;
+// Grab elements, create settings, etc.
+var video: any = document.getElementById("video");
+var canvas = document.getElementById("canvas");
+var sketch = function (p: any) {
+
+	let x = 100; 
+	let y = 100;
+  
+	p.setup = function() {
+	  	let canvas: any = p.createCanvas(window.innerWidth, window.innerHeight);
+	  	canvas.hide();
+		let videoOptions = {
+			audio: false, video: {
+				width: canvas.width,
+				height: canvas.height,
+			}
+		}
+		video = p.createCapture(videoOptions);
+		handpose = ml5.handpose(video, function(){console.log("Model ready!")});
+		//@ts-ignore
+		handpose.on("predict", results => {
+			predictions = results;
+		  });
+		video.hide();
+	  
+	};
+	p.draw = function(){
+		for (let i = 0; i < predictions.length; i += 1) {
+			const prediction = predictions[i];
+			for (let j = 0; j < prediction.landmarks.length; j += 1) {
+				console.log(predictions[0].landmarks[9][0])
+				handPosition = {x: predictions[0].landmarks[9][0], y: predictions[0].landmarks[9][1]}
+				viewOne.onHandMove(handPosition, viewOne.elbow, 50);
+				viewOne.onHandMove(handPosition, viewOne.wrist, 30);
+			}
+		}
+		// We can call both functions to draw all keypoints and the skeletons
+		
+	}
+
+  };
+let myp5 = new p5(sketch);
+
+function setupPoseNet() {
+	console.log("Start Up PoseNet")
+	// let canvas: any = p5.createCanvas(window.innerWidth, window.innerHeight);
+	// canvas.hide();
+	// let videoOptions = {
+	// 	audio: false, video: {
+	// 		width: canvas.width,
+	// 		height: canvas.height,
+	// 	}
+	// }
+	// video = p5.createCapture(videoOptions);
+	// video.hide();
+	// console.log("Start Up PoseNet")
+
+	var params = {
+		imageScaleFactor: 0.6,
+		outputStride: 8,
+		flipHorizontal: false,
+		minConfidence: 0.2,
+		maxPoseDetections: 1,
+		scoreThreshold: 0.5,
+		nmsRadius: 20,
+		detectionType: 'single',
+		multiplier: 1.01,
+	}
+
+	// Create a new poseNet method with a single detection
+	// video.size(width, height);
+	console.log(video, params);
+	poseNet = ml5.poseNet(video, params, function () {
+		console.log("model ready!!!!!!!!!!!!!!");
+		poseNet.multiPose(video);
+		ml5.select('#status').html('Model Loaded');
+		poseNet.detectionType = 'single';
+	});
+	
+	poseNet.detectionType = 'single';
+
+	// Set up an event that fills the global variable "poses" with an array every time new poses are detected
+	poseNet.on('pose', function (results: any) {
+		poses = results;
+		console.log(poses);
+
+	});
+
+
+}
 
 let viewOne: ViewOne;
-let viewTwo: ViewTwo;
+
 let views: BaseView[] = [];
 
 let texts = [];
@@ -45,42 +142,20 @@ let textInput: any = document.getElementById("text");  //get a hold of something
 
 function createNewText(text_msg: any) {
     console.log("Created New Text");
-    // let canvas: any = document.createElement("canvas");
-    // canvas.width = 512;
-    // canvas.height = 512;
-    // let context: any = canvas.getContext("2d");
-    // // context.clearRect(0, 0, canvas.width, canvas.height);
-    // var fontSize = 30;
-    // context.font = fontSize + "pt Arial";
-    // context.textAlign = "center";
-    // context.fillStyle = "white";
-    // context.fillText(text_msg, canvas.width / 2, canvas.height / 2);
-    // var textTexture = new THREE.Texture(canvas);
-    // textTexture.needsUpdate = true;
-    // var material = new THREE.MeshBasicMaterial({ map: textTexture, transparent:true });
-    // var geo = new THREE.PlaneGeometry(1, 1);
-    // var mesh = new THREE.Mesh(geo, material);
 
-    // const posInWorld = new THREE.Vector3();
-    // //remember we attached a tiny to the  front of the camera in init, now we are asking for its position
-
-    // in_front_of_you.position.set(0,0,-(600-camera3D.fov*7));  //base the the z position on camera field of view
-    // in_front_of_you.getWorldPosition(posInWorld);
-    // mesh.position.x = 0;
-	// mesh.position.y = 0;
-	// mesh.position.z = 1.5;
-
-    // mesh.lookAt(0,0,0);
-    // mesh.scale.set(10,10, 10);
-    // BaseView.scene.add(mesh);
-    // texts.push({"object":mesh, "texture":textTexture, "text":text_msg});
+	viewOne.plane.position.x = viewOne.cube.position.x;
+	viewOne.scene.add(viewOne.plane);
+    let canvas: any = document.createElement("canvas");
+	viewOne.textMove();
 }
+
+
 
 
 function main() {
 	initScene();
 	initStats();
-	initGUI();
+	// setupPoseNet();
 	initListeners();
 }
 
@@ -89,29 +164,7 @@ function initStats() {
 	document.body.appendChild(stats.dom);
 }
 
-function initGUI() {
-	const gui = new DAT.GUI();
 
-	let tlSettings = {
-		position: 0,
-		play: () => { viewTwo.tl.play() },
-		pause: () => { viewTwo.tl.pause() },
-		restart: () => {
-			viewTwo.tl.pause()
-			viewTwo.tl.seek(0)
-			viewTwo.tl.play()
-		}
-	}
-	const tlControls = gui.addFolder("timeline")
-	tlControls.open()
-	tlControls.add(tlSettings, "position", 0, 8, 0.01).onChange((value) => {
-		viewTwo.tl.pause()
-		viewTwo.tl.seek(value)
-	})
-	tlControls.add(tlSettings, "play")
-	tlControls.add(tlSettings, 'pause');
-	tlControls.add(tlSettings, "restart");
-}
 
 function initScene() {
 	
@@ -142,17 +195,7 @@ function initScene() {
 		// u_mouse: { type: 'v2', value: new THREE.Vector2() },
 	};
 
-	// add event listener to highlight dragged objects
 
-	// controls = new DragControls([plane], camera, renderer.domElement);
-
-	// controls.addEventListener('dragstart', function(event) {
-	// 	event.object.material.emissive.set(0xaaaaaa);
-	// })
-
-	// controls.addEventListener('dragend', function (event) {
-	// 	event.object.material.emissive.set(0x000000);
-	// })
 
 	// // Init animation
 	animate();
@@ -160,49 +203,12 @@ function initScene() {
 
 function initListeners() {
 	window.addEventListener('resize', onWindowResize, false);
-
 	window.addEventListener('pointermove', onPointerMove);
-
-	window.addEventListener('keydown', (event) => {
-		const { key } = event;
-		// console.log(key);
-
-		switch (key) {
-			case 'e':
-				const win = window.open('', 'Canvas Image');
-
-				const { domElement } = renderer;
-
-				// Makse sure scene is rendered.
-				// renderer.render(scene, camera);
-
-				const src = domElement.toDataURL();
-
-				if (!win) return;
-
-				win.document.write(`<img src='${src}' width='${domElement.width}' height='${domElement.height}'>`);
-				break;
-
-			case 'ArrowRight':
-				model.activeView = (model.activeView + 1) % views.length
-				break;
-
-			case 'ArrowLeft':
-				model.activeView = (model.activeView - 1)
-				if (model.activeView < 0) {
-					model.activeView = views.length - 1;
-				}
-				break;
-
-			default:
-				break;
-		}
-	});
 }
 
 function onWindowResize() {
 	viewOne.onWindowResize();
-	viewTwo.onWindowResize();
+
 }
 
 function onPointerMove(event: any) {
@@ -225,38 +231,23 @@ function animate() {
 			viewOne.update(clock);
 			break;
 
-		case 1:
-			viewTwo.update(clock);
-			break;
-
 		default:
 			break;
 	}
 	
 
 
-	// raycaster.setFromCamera(pointerPosition, camera)
-	// const intersects = raycaster.intersectObjects(scene.children)
 
-	// for (let i = 0; i < scene.children.length; i++) {
-	// 	if (scene.children[i].type === "Mesh") {
-	// 		(scene.children[i] as MeshObj).material.color.set(0x888888);
-	// 	}
-	// }
-
-	// for (let i = 0; i < intersects.length; i++) {
-	// 	if (intersects[i].object.type === 'Mesh') {
-	// 		(intersects[i].object as MeshObj).material.color.set(0xff0000);
-	// 	}
-	// }
 
 
 	if (stats) stats.update();
 
-	// if (controls) controls.update();
+
 
 	renderer.render(views[model.activeView].scene, views[model.activeView].camera);
 }
+
+
 
 main();
 

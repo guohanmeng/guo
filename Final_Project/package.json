@@ -6,9 +6,12 @@
 		"watch": "tsc --watch",
 		"build": "tsc && vite build --base=./",
 		"serve": "vite preview",
-		"pretty": "prettier --write 'src/**/*.{ts,html,scss}'"
+		"pretty": "prettier --write 'src/**/*.{ts,html,scss}'",
+		"clean": "rm -rf node_modules",
+		"reinstall": "npm run clean && npm install"
 	},
 	"devDependencies": {
+		"@types/p5": "^1.4.2",
 		"@types/three": "^0.134.0",
 		"autoprefixer": "^10.4.0",
 		"prettier": "^2.5.0",
@@ -20,6 +23,10 @@
 		"@types/dat.gui": "^0.7.7",
 		"dat.gui": "^0.7.9",
 		"gsap": "^3.10.2",
+		"ml5": "0.1.2",
+		
+		"p5": "^1.4.1",
+
 		"three": "^0.134.0"
 	}
 }

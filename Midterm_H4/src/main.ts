@@ -4,7 +4,7 @@ import * as PIXI from "pixi.js";
 import * as dat from "dat.gui";
 import { gsap } from "gsap";
 import { Model, SceneState } from './model';
-import { ContextSystem, LineStyle, UPDATE_PRIORITY } from "pixi.js";
+import { Container, ContextSystem, LineStyle, UPDATE_PRIORITY } from "pixi.js";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin.js";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {$} from "jquery";
@@ -166,36 +166,37 @@ function onLoaded() {
     //   app.stage.addChild(element);
     // }
 
-    //     // building2
-    //     for (let i = 0; i < 10; i++) {
-    //       const element = new PIXI.Graphics();
-    //       const container = new PIXI.Container();
+        // building2
+        // for (let i = 0; i < 10; i++) {
+        //   const element = new PIXI.Graphics();
+        //   const container = new PIXI.Container();
     
-    //       buildingH2[i] = {
-    //         value: Math.floor(Math.random() * 180) + 200,
-    //       };
-    //       buildingW2[i] = {
-    //         value: Math.floor(Math.random() * 200) + 100,
-    //       };
+        //   buildingH2[i] = {
+        //     value: Math.floor(Math.random() * 180) + 200,
+        //   };
+        //   buildingW2[i] = {
+        //     value: Math.floor(Math.random() * 200) + 100,
+        //   };
     
-    //       let AllBW = 0;
+        //   let AllBW = 0;
     
-    //       for (let j = 0; j < buildingW2.length; j++){
-    //         AllBW += buildingW2[j];
-    //       }
+        //   for (let j = 0; j < buildingW2.length; j++){
+        //     AllBW += buildingW2[j];
+        //   }
     
-    //       element.x = AllBW + 20;
-    //       element.y = 1000;
-    //       element.beginFill(buildingC2[Math.floor(Math.random() * 3)]);
-    //       element.drawRect(0, 0, buildingW2[i], buildingH1[i]);
-    //       element.setTransform(window.innerWidth, window.innerHeight, 1, 1, Math.PI, 0, 0, 0, 0);
+        //   element.x = AllBW + 20;
+        //   element.y = 1000;
+        //   element.beginFill(buildingC2[Math.floor(Math.random() * 3)]);
+        //   element.drawRect(0, 0, buildingW2[i], buildingH1[i]);
+        //   element.setTransform(window.innerWidth, window.innerHeight, 1, 1, Math.PI, 0, 0, 0, 0);
 
-    //       container.addChild(element);
-    //       container.pivot.x = container.width / 2;
-    //       container.pivot.y = container.height / 2;
-    //       Buildings_2.addChild(container);
-    //       app.stage.addChild(container);
-    //     }
+        //   container.addChild(element);
+        //   container.pivot.x = container.width / 2;
+        //   container.pivot.y = container.height / 2;
+        //   Buildings_2.addChild(container);
+        //   // app.stage.addChild(container);
+        // }
+        // app.stage.addChild(Buildings_2)
 
     //     // building3
     //     for (let i = 0; i < 10; i++) {
@@ -558,7 +559,15 @@ function update(this: any, delta: number) {
     element.endFill();
   });
 
-  // tl.to(triHeights, { value: (window.innerHeight - 40) * Math.sin(elaspsedTime), duration: 1 });
+  Buildings_2.children.forEach((container, i) => { 
+    //@ts-ignore
+    container.children[0].clear()
+    //@ts-ignore
+    container.children[0].drawRect(0,0,buildingW2[i], buildingH1[i])
+
+  })
+
+  tl.to(triHeights, { value: (window.innerHeight - 40) * Math.sin(elaspsedTime), duration: 1 });
 
   tl.to(buildingH1, { stagger: Math.sin(0.1), value: 490, ease:"elastic.out(1, 0.3)", duration: 1});
   // tl.to(buildingH1, { stagger: Math.sin(0.1), value: 0, ease:"elastic.out(1, 0.3)", duration: 1}, "< 1");

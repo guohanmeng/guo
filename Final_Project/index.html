@@ -4,10 +4,27 @@
 		<meta charset="UTF-8" />
 		<link rel="icon" type="image/svg+xml" href="favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>vite-threejs-ts-starter</title>
+		<title>my_final_project</title>
 	</head>
 	<body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js" integrity="sha512-n8IpKWzDnBOcBhRlHirMZOUvEq2bLRMuJGjuVqbzUJwtTsgwOgK5aS0c1JA647XWYfqvXve8k3PtZdzpipFjgg==" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+		<script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"
+		integrity="sha512-N4kV7GkNv7QR7RX9YF/olywyIgIwNvfEe2nZtfyj73HdjCUkAfOBDbcuJ/cTaN04JKRnw1YG1wnUyNKMsNgg3g=="
+		crossorigin="anonymous"
+		referrerpolicy="no-referrer">
+	  </script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"
+		integrity="sha512-WzkwpdWEMAY/W8WvP9KS2/VI6zkgejR4/KTxTl4qHx0utqeyVE0JY+S1DlMuxDChC7x0oXtk/ESji6a0lP/Tdg=="
+		crossorigin="anonymous"
+		referrerpolicy="no-referrer">
+	  </script>
 		<script type="module" src="/src/main.ts"></script>
+
+		<script>
+			console.log('ml5 version:', ml5.version);
+		</script>
 		<div>
 			Say Something to the Alien: <input type="text" value='Hi There' id="text">
 		</div>
