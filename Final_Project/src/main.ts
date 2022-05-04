@@ -79,53 +79,6 @@ var sketch = function (p: any) {
   };
 let myp5 = new p5(sketch);
 
-function setupPoseNet() {
-	console.log("Start Up PoseNet")
-	// let canvas: any = p5.createCanvas(window.innerWidth, window.innerHeight);
-	// canvas.hide();
-	// let videoOptions = {
-	// 	audio: false, video: {
-	// 		width: canvas.width,
-	// 		height: canvas.height,
-	// 	}
-	// }
-	// video = p5.createCapture(videoOptions);
-	// video.hide();
-	// console.log("Start Up PoseNet")
-
-	var params = {
-		imageScaleFactor: 0.6,
-		outputStride: 8,
-		flipHorizontal: false,
-		minConfidence: 0.2,
-		maxPoseDetections: 1,
-		scoreThreshold: 0.5,
-		nmsRadius: 20,
-		detectionType: 'single',
-		multiplier: 1.01,
-	}
-
-	// Create a new poseNet method with a single detection
-	// video.size(width, height);
-	console.log(video, params);
-	poseNet = ml5.poseNet(video, params, function () {
-		console.log("model ready!!!!!!!!!!!!!!");
-		poseNet.multiPose(video);
-		ml5.select('#status').html('Model Loaded');
-		poseNet.detectionType = 'single';
-	});
-	
-	poseNet.detectionType = 'single';
-
-	// Set up an event that fills the global variable "poses" with an array every time new poses are detected
-	poseNet.on('pose', function (results: any) {
-		poses = results;
-		console.log(poses);
-
-	});
-
-
-}
 
 let viewOne: ViewOne;
 

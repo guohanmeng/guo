@@ -19,9 +19,6 @@ There’re two main interactions: 1) 3D model alien’s hand position would move
 
 ![arrival3](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Final_Project/arrival3.gif)
 
-## Credit
-This assignment is inspired by [webgl_interactive_voxelpainter](https://threejs.org/examples/?q=interac#webgl_interactive_voxelpainter), a three js example code. I want to make a bald head that user can pain hairs/mustache onto. 
-
 ## Process
 
 Add fog: 
@@ -75,13 +72,18 @@ function initGUI() {
 	folder.open();
 }
 ```
-I wanted to add fly controls to allow users rotate the head without clicking, but failed. I also tried the firstperson control:
+I tried to load the camera capture and p5 canvas:
 ```javascript
-controls = new FirstPersonControls( camera, renderer.domElement );
-controls.rollSpeed = Math.PI / 6;
-controls.autoForward = false;
-controls.dragToLook = false;
+console.log("Start Up PoseNet")
+let canvas: any = p5.createCanvas(window.innerWidth, window.innerHeight);
+canvas.hide();
+video = p5.createCapture(videoOptions);
+video.hide();
 ```
 Not working, either. 
 
 In the future, I will try to find out how to implement the fly control properly.
+
+## Credit
+[Three.js skeleton interaction](https://tympanus.net/codrops/2019/10/14/how-to-create-an-interactive-3d-character-with-three-js/)
+[ml5js handpose](https://editor.p5js.org/jeeyoonhyun/sketches/YiDt-sf59)
