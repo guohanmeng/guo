@@ -1,14 +1,14 @@
 # Final Project -- Arrival
 
 ## Video demo
-<https://drive.google.com/file/d/1Vt89xKJqknqTIQluG_F9B0RNuSBXaVgr/view?usp=sharing>
+<https://drive.google.com/file/d/1-_6pdV1FbVD1AYpNofSyp4zKZ2nKXmLb/view?usp=sharing>
 
 ## Live Demo
 <https://carrotliu.github.io/IDM-CCL-WebGL/Final_Project/dist/>
 
 
 ## Concept
-For the final project, I want to simulate the communication between human and alien on the web. The idea comes from “Arrival”.
+In this project, I want to simulate the communication between human and alien on the web. The idea comes from “Arrival”, a movie about the arrival of aliens on earth and the scientists who tries to communicate with them. The aliens use circular patterns as their language, and perceive events in a non-linear way. The linguistist tries to communicate with them with body language and human language.
 ![arrival1](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Final_Project/arrival1.png) 
 
 There’re two main interactions: 1) 3D model alien’s hand position would move with the user’s hand when the hand is detected in front of the camera:
@@ -33,25 +33,20 @@ this.scene.background = new Color(0xffffff);
 ```
 Blender modeling and rigging:
 ![blender1](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Final_Project/blender1.png)
+
 ![blender2](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Final_Project/blender2.png)
+
 ![blender3](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Final_Project/blender3.png)
+
 ![blender4](https://github.com/CarrotLiu/IDM-CCL-WebGL/blob/main/Final_Project/blender4.png)
 
-I tried to import the p5 and ml5 using npm but failed:
 
+Mashing up ml5, p5 and three.js in typescript:
+This part is the hardest for me... Initially, I tried to import the p5 and ml5 using npm. But typescript keep complaining that the module is not declared. I tried several
 ```javascript
-var loader = new THREE.TextureLoader();
-loader.load("./resources/textures/face.jpg",
-			(texture) => {
-				const geometry = new THREE.PlaneGeometry( 600, 600 );
 
-				// geometry.rotateX( - Math.PI / 2 );
-			
-				plane = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { color: 0xffffff, map: texture } ) );
-				plane.position.z = 300;
-				scene.add( plane );
-			} );
 ```
+
 
 
 I also added a gui, which allows users to change the color of the painted voxel:
@@ -80,7 +75,8 @@ canvas.hide();
 video = p5.createCapture(videoOptions);
 video.hide();
 ```
-Not working, either. 
+But it returns an error saying that createCanvas is not a function:
+
 
 In the future, I will try to find out how to implement the fly control properly.
 
